@@ -12,8 +12,6 @@ import components.Window;
 public class Game implements Runnable {
   //Constantes
 
-
-
   // Atributos de pantalla 
   protected int width = Constant.GAME_WIDTH;
   protected int height = Constant.GAME_HEIGHT;
