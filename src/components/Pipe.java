@@ -1,9 +1,6 @@
-/**
- * Implementa todos los métodos y atributos de una tubería (Obstáculo)
- */
-
 package components;
 
-public class Pipe {
+/** Clase de la tubería, implementa atributos y métodos (Hereda todo de GameObject) */
+public class Pipe extends GameObject {
   
 }

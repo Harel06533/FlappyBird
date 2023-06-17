@@ -1,9 +1,6 @@
-/**
- * Implementa todos los atributos y métodos del pájaro (Jugador)
- */
-
 package components;
 
-public class Bird {
-  
+/** Clase del pájaro, implementa métodos y atributos del objeto (Hereda todo de GameObject) */
+public class Bird extends GameObject {
+
 }

@@ -11,7 +11,5 @@ package app;
  */
 public class App {
   public static void main (String[] args) {
-    // Inicializa el programa
-    new Game().start();
   }
 }
