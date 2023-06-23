@@ -1,21 +1,22 @@
 package util;
 
-/**
- * Implementación de valores constantes que se utilizarán en todo el programa
- * @author Harel Alejandro Olguín Gaytán
- * 
-*/
+/** Constantes que se utilizarán a lo largo de toda la aplicación */
+public abstract class Constant {
+  // version actuál del juego  
+  private static final String version = "ALPHA v1.0";
 
-public class Constant {
-  // Constantes para el tamaño del frame
-  public static final int GAME_HEIGHT = 800; 
-  public static final int GAME_WIDTH = 600;
+  // pantalla
+  public static final int WIDTH = 432;
+  public static final int HEIGHT = 768;
+  public static final double FRAMERATE = 120.0;
+  public static final String TITLE = "Flappy Bird " + version;
 
-  // Título 
-  public static final String TITLE = "Flappy Bird";
+  // path (es probable que se tengan que actualizar los datos)
+  public static final String[] birdImgs = {"../assets/img/bird0.png", "../assets/img/bird1.png", "../assets/img/bird2.png"};
+  public static final String groundImg = "../assets/img/ground.png";
+  public static final String pipeImg = "../assets/img/pipe.png";
 
-  //Constantes de Path
-  public static final String BACKGROUND_IMG = "assets/img/background.png";
-  public static final String BIRD_IMGS[] = {"assets/img/bird0.png", "assets/img/bird1.png", "assets/img/bird2.png"};
-  public static final String PIPE_IMG = "assets/img/pipe";
+  public static final String flySoundPath = "../assets/audio/fly.wav";
+  public static final String hitSoundPath = "../assets/audio/hit.wav";
+  public static final String scoreSoundPath = "../assets/audio/score.wav";
 }
