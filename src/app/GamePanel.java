@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
+import components.Bird;
 import components.tools.BirdKeyListener;
 
 import static util.Constant.FRAMERATE;
@@ -15,18 +16,17 @@ public class GamePanel extends JPanel implements Runnable {
   // atributos
   private int width;
   private int height;
-  private int posx;
-  private int posy;
+
   private Thread thread;
   private BirdKeyListener birdKeyListener;
+  private Bird bird;
 
   // constructor
   public GamePanel (int width, int height) {
+    birdKeyListener = new BirdKeyListener();
+    bird = Bird.getBird(this, birdKeyListener);
     this.width = width;
     this.height = height;
-    posx = this.width >> 1;
-    posy = this.height >> 1;
-    birdKeyListener = new BirdKeyListener();
 
     setPreferredSize(new Dimension(this.width, this.height));
     setBackground(Color.black);
@@ -41,8 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
   @Override
   protected void paintComponent (Graphics g) {
     super.paintComponent(g);
-    g.setColor(Color.cyan);
-    g.fillRect(posx, posy, 48, 48);
+    bird.draw(g);
     g.dispose();
   }
 
@@ -54,11 +53,7 @@ public class GamePanel extends JPanel implements Runnable {
 
   // actualiza la información del juego para ser calculado en pantalla
   public void update () {
-    if (birdKeyListener.jumping) {
-      posy -= 10;
-    } else {
-      posy += 3;
-    }
+    bird.update();
   }
 
   // corre el hilo del juego para actualizar y renderizar imágenes (Calcula los tiempos de cada frame para que sea estable)
