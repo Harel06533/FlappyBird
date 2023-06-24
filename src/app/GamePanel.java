@@ -11,6 +11,7 @@ import components.Bird;
 import components.tools.BirdKeyListener;
 
 import static util.Constant.FRAMERATE;
+import static util.Constant.BACKGROUND_IMG_PATH;
 
 import components.Background;
 
@@ -53,19 +54,10 @@ public class GamePanel extends JPanel implements Runnable {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-<<<<<<< HEAD
-    // Dibuja la imagen de fondo en el panel
-    Background background = new Background("assets/img/background.png");
-    background.drawBackground(g);
-    // Dibuja el resto de los gráficos
-    Bird bird = Bird.getBird();
-    bird.setBirdPosX(posx); // Establece la posición X del pájaro
-    bird.setBirdPosY(posy); // Establece la posición Y del pájaro
-    bird.drawBird(g); // dibuja el Pajaro
-=======
+    Background fondo = new Background(BACKGROUND_IMG_PATH);
+    fondo.drawBackground(g);
     bird.draw(g);
     g.dispose();
->>>>>>> 903c3c653e9a78b4b9180e435618dfe9579d46c3
   }
 
 

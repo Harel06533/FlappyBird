@@ -15,6 +15,7 @@ public abstract class Constant {
   public static final String[] BIRD_IMGS_PATH = {"./assets/img/bird0.png", "./assets/img/bird1.png", "./assets/img/bird2.png"};
   public static final String GROUND_IMG_PATH = "./assets/img/ground.png";
   public static final String PIPE_IMG_PATH = "./assets/img/pipe.png";
+  public static final String BACKGROUND_IMG_PATH = "./assets/img/background.png";
 
   public static final String FLY_SOUND_PATH = "./assets/audio/fly.wav";
   public static final String HIT_SOUND_PATH = "./assets/audio/hit.wav";

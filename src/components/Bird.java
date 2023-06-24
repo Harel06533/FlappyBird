@@ -1,9 +1,5 @@
 package components;
 
-<<<<<<< HEAD
-import java.awt.Graphics;
-import javax.swing.ImageIcon;
-=======
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -17,47 +13,8 @@ import static util.Constant.HEIGHT;
 import static util.Constant.BIRD_IMGS_PATH;
 
 import util.BaseUtil;
->>>>>>> 903c3c653e9a78b4b9180e435618dfe9579d46c3
 
 public class Bird {
-<<<<<<< HEAD
-    private static Bird instance = null;
-    private static ImageIcon bird0;
-    private String birdpath = "assets/img/bird0.png";
-
-    private static int birdPosX;
-    private static int birdPosY;
-
-    // Constructor privado
-    private Bird() {
-        bird0 = new ImageIcon(birdpath);
-        birdPosX = 0;
-        birdPosY = 0;
-    }
-
-    // Establece posición del pajaro en X
-    public void setBirdPosX(int birdPosX) {
-        Bird.birdPosX = birdPosX;
-    }
-
-    // Establece posición del pajaro en Y
-    public void setBirdPosY(int birdPosY) {
-        Bird.birdPosY = birdPosY;
-    }
-
-    //Dibuja el pajaro
-    public void drawBird(Graphics g) {
-        g.drawImage(bird0.getImage(), birdPosX, birdPosY, null);
-    }
-
-    // Obtiene 
-    public static Bird getBird() {
-        if (instance == null) {
-            instance = new Bird();
-        }
-        return instance;
-    }
-=======
   // constantes
   public static final int BIRD_IDLE = 0;
   public static final int BIRD_PLAYING = 1;
@@ -117,5 +74,4 @@ public class Bird {
     image = birdImages[1];
     g.drawImage(image, posx, posy, null);
   }
->>>>>>> 903c3c653e9a78b4b9180e435618dfe9579d46c3
 }
