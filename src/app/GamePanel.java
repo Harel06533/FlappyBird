@@ -2,6 +2,7 @@ package app;
 
 import javax.swing.JPanel;
 
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -9,6 +10,10 @@ import java.awt.Graphics;
 import components.tools.BirdKeyListener;
 
 import static util.Constant.FRAMERATE;
+
+import components.Background;
+
+import components.Bird;
 
 /** Implementa un componente para trabajar gráficos encima */
 public class GamePanel extends JPanel implements Runnable {
@@ -20,6 +25,8 @@ public class GamePanel extends JPanel implements Runnable {
   private Thread thread;
   private BirdKeyListener birdKeyListener;
 
+
+
   // constructor
   public GamePanel (int width, int height) {
     this.width = width;
@@ -30,6 +37,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     setPreferredSize(new Dimension(this.width, this.height));
     setBackground(Color.black);
+    /* Establece la imagen de fondo */
+    setPreferredSize(new Dimension(this.width, this.height));
+    setOpaque(false); // Hace que el panel sea transparente
+
+
 
     addKeyListener(birdKeyListener);
     setFocusable(true);
@@ -39,12 +51,19 @@ public class GamePanel extends JPanel implements Runnable {
 
   // sobreescribe el componente para pintar los gráficos
   @Override
-  protected void paintComponent (Graphics g) {
+  protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-    g.setColor(Color.cyan);
-    g.fillRect(posx, posy, 48, 48);
-    g.dispose();
+    // Dibuja la imagen de fondo en el panel
+    Background background = new Background("assets/img/background.png");
+    background.drawBackground(g);
+    // Dibuja el resto de los gráficos
+    Bird bird = Bird.getBird();
+    bird.setBirdPosX(posx); // Establece la posición X del pájaro
+    bird.setBirdPosY(posy); // Establece la posición Y del pájaro
+    bird.drawBird(g); // dibuja el Pajaro
   }
+
+
 
   // inicializa el hilo
   public void start () {
