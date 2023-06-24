@@ -2,7 +2,6 @@ package app;
 
 import javax.swing.JPanel;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -11,11 +10,8 @@ import components.Bird;
 import components.tools.BirdKeyListener;
 
 import static util.Constant.FRAMERATE;
-import static util.Constant.BACKGROUND_IMG_PATH;
 
 import components.Background;
-
-import components.Bird;
 
 /** Implementa un componente para trabajar gráficos encima */
 public class GamePanel extends JPanel implements Runnable {
@@ -24,25 +20,25 @@ public class GamePanel extends JPanel implements Runnable {
   private int height;
 
   private Thread thread;
+
   private BirdKeyListener birdKeyListener;
   private Bird bird;
-
-
+  private Background background;
 
   // constructor
   public GamePanel (int width, int height) {
     birdKeyListener = new BirdKeyListener();
+    background = new Background();
     bird = Bird.getBird(this, birdKeyListener);
+
     this.width = width;
     this.height = height;
 
     setPreferredSize(new Dimension(this.width, this.height));
     setBackground(Color.black);
-    /* Establece la imagen de fondo */
+
     setPreferredSize(new Dimension(this.width, this.height));
     setOpaque(false); // Hace que el panel sea transparente
-
-
 
     addKeyListener(birdKeyListener);
     setFocusable(true);
@@ -54,13 +50,10 @@ public class GamePanel extends JPanel implements Runnable {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-    Background fondo = new Background(BACKGROUND_IMG_PATH);
-    fondo.drawBackground(g);
+    background.draw(g);
     bird.draw(g);
     g.dispose();
   }
-
-
 
   // inicializa el hilo
   public void start () {

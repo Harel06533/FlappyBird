@@ -12,6 +12,7 @@ public class BirdKeyListener implements KeyListener {
   public void keyPressed (KeyEvent e) {
     int keyCode = e.getKeyCode();
     if (keyCode == KeyEvent.VK_SPACE) {
+      jumping = true;
     }
   }
   

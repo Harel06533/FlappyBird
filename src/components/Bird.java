@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import app.GamePanel;
-
 import components.tools.BirdKeyListener;
 
 import static util.Constant.WIDTH; 
@@ -26,8 +25,10 @@ public class Bird {
   private static final int initialX = WIDTH >> 1;
   private static final int initialY = HEIGHT >> 1;
 
-  private int width;
-  private int height;
+  private int animationTick;
+  private int animationIndex;
+  private int animationSpeed;
+  private int state;
   private int posx;
   private int posy;
   private double xVelocity;
@@ -37,10 +38,13 @@ public class Bird {
   private BirdKeyListener mainKeyListener;
 
   private BufferedImage[] birdImages;
-  private BufferedImage image;
+  private BufferedImage currentImage;
 
   // constructor privado (inicializa todas las variables necesarias)
   private Bird (GamePanel parentPanel, BirdKeyListener mainKeyListener) {
+    animationSpeed = 5;
+    animationTick = 0;
+    animationIndex = 0;
     posx = initialX;
     posy = initialY;
     xVelocity = 0;
@@ -60,6 +64,17 @@ public class Bird {
     return instance;
   }
 
+  // suma in índice para iterar en los sprites del pájaro y animarlos en base a los fps
+  public void animate () {
+    animationTick++;
+    if (animationTick >= animationSpeed) {
+      animationTick = 0;
+      animationIndex++;
+      if (animationIndex >= birdImages.length)
+        animationIndex = 0;
+    }
+  }
+
   // actualiza la inforamción del jugador basado en su estado
   public void update () {
     if (mainKeyListener.jumping == true) {
@@ -67,11 +82,11 @@ public class Bird {
     } else {
       posy += yVelocity - 3;
     }
+    animate();
   }
 
   // dibuja el elemento en pantalla
   public void draw (Graphics g) {
-    image = birdImages[1];
-    g.drawImage(image, posx, posy, null);
+    g.drawImage(birdImages[animationIndex], posx, posy, null);
   }
 }
