@@ -18,7 +18,6 @@ public class Ground {
     GroundImage = BaseUtil.loadBufferedImage(GROUND_IMG_PATH);
   }
 
-
   // Método para dibujar el fondo
   public void draw(Graphics g) {
     g.drawImage(GroundImage, -50, 600, null);
