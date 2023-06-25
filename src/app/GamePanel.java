@@ -13,18 +13,6 @@ import components.tools.BirdKeyListener;
 
 import static util.Constant.FRAMERATE;
 
-import static util.Constant.FLY_SOUND_PATH;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
-
-import java.io.File;
-
-
-
-
 /** Implementa un componente para trabajar gráficos encima */
 public class GamePanel extends JPanel implements Runnable {
   // atributos
@@ -37,7 +25,6 @@ public class GamePanel extends JPanel implements Runnable {
   private Bird bird;
   private Background background;
   private Ground ground;
-  private String soundFilePath = FLY_SOUND_PATH;
 
   // constructor
   public GamePanel (int width, int height) {
@@ -95,15 +82,13 @@ public class GamePanel extends JPanel implements Runnable {
       long currentTime = System.nanoTime();
       delta += (currentTime - lastTime) / timePerFrame;
       lastTime = currentTime;
-      timer += (currentTime -lastTime);
-
+      timer += (currentTime - lastTime);
       if (delta > 0) {
-            bird.update();
-            repaint();
-            delta--;
-            fps++;
+        update();
+        repaint();
+        delta--;
+        fps++;
         }
-
       if (timer >= 1000000000) {
         System.out.println("FPS: " + fps);
         timer = 0;
