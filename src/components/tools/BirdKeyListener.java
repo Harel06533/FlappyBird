@@ -24,6 +24,7 @@ public class BirdKeyListener implements KeyListener {
 
   @Override
   public void keyTyped (KeyEvent e) {
+
   }
   
 }

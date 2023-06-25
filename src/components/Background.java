@@ -11,6 +11,7 @@ import static util.Constant.BACKGROUND_IMG_PATH;
 public class Background {
   
   private BufferedImage backgroundImage;
+  
 
   // Constructor
   public Background() {
