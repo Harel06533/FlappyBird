@@ -101,11 +101,11 @@ public void update() {
   if (!initMove) {
     if (mainKeyListener.jumping) {
       initMove = true;
-      yVelocity = -10;  // Velocidad inicial hacia arriba al presionar la tecla de espacio
+      yVelocity = -7;  // Velocidad inicial hacia arriba al presionar la tecla de espacio
     }
   } else {
     if (mainKeyListener.jumping) {
-      yVelocity = -10;  // Mantener la velocidad hacia arriba al presionar la tecla de espacio
+      yVelocity = -7;  // Mantener la velocidad hacia arriba al presionar la tecla de espacio
       fallingAnimation = false;
     } else {
       yVelocity += ACC_Y;  // Aplicar gravedad

@@ -21,7 +21,7 @@ public abstract class Constant {
                                                 "./assets/img/down4.png","./assets/img/down5.png",
                                               "./assets/img/down6.png","./assets/img/down7.png"};
 
-  public static final String FLY_SOUND_PATH = "./FlappyBird/assets/audio/fly.wav";
-  public static final String HIT_SOUND_PATH = "./FlappyBird/assets/audio/hit.wav";
-  public static final String SCORE_SOUND_PATH = "./FlappyBird/assets/audio/score.wav";
+  public static final String FLY_SOUND_PATH = "./assets/audio/fly.wav";
+  public static final String HIT_SOUND_PATH = "./assets/audio/hit.wav";
+  public static final String SCORE_SOUND_PATH = "./assets/audio/score.wav";
 }
