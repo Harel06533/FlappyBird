@@ -27,4 +27,4 @@ public class Window extends JFrame {
   public void gameStart () {
     panelComponent.start();
   }
-}
+}   

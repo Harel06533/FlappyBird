@@ -46,7 +46,6 @@ public class Bird {
   private BirdKeyListener mainKeyListener;
 
   private BufferedImage[] birdImages;
-  private BufferedImage currentImage;
 
   private boolean fallingAnimation; //para la animacion de caida, aun no cae del todo bien el wey
   private int fallAnimationIndex;
@@ -66,7 +65,7 @@ public class Bird {
     posx = initialX;
     posy = initialY;
     xVelocity = 0;
-    yVelocity = 7;
+    yVelocity = 1;
     initMove = false;
     
     birdImages = new BufferedImage[BIRD_IMGS_PATH.length];
@@ -84,20 +83,6 @@ public class Bird {
     return instance;
   }
 
-  // Getters necesarios
-
-  public static String getFlySoundPath() {
-  return FLY_SOUND_PATH;
-}
-
-  public static String getHitSoundPath() {
-    return HIT_SOUND_PATH;
-  }
-
-  public static String getScoreSoundPath() {
-    return SCORE_SOUND_PATH;
-  }
-
 
   // suma in índice para iterar en los sprites del pájaro y animarlos en base a los fps
   public void animate () {
@@ -112,6 +97,7 @@ public class Bird {
 
 // actualiza la información del jugador basado en su estado
 public void update() {
+  animate();
   if (!initMove) {
     if (mainKeyListener.jumping) {
       initMove = true;
@@ -126,13 +112,10 @@ public void update() {
     }
 
     posy += yVelocity;
-    animate();
   }
 }
 
-
-
-  // dibuja el elemento en pantalla
+// dibuja el elemento en pantalla
   public void draw (Graphics g) {
     if(fallingAnimation)
       g.drawImage(fallImages[fallAnimationIndex], posx, posy, null);// dibujar las animaciones de caida, falta por implementar

@@ -79,25 +79,8 @@ public class GamePanel extends JPanel implements Runnable {
 
   // actualiza la información del juego para ser calculado en pantalla
   public void update () {
-    playSound(Bird.getFlySoundPath());
     bird.update();
   }
-
-private void playSound(String soundFilePath) {
-  try {
-    File soundFile = new File(soundFilePath);
-    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-    Clip clip = AudioSystem.getClip();
-    clip.open(audioInputStream);
-    FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-    volumeControl.setValue(-10.0f); // Ajusta el volumen aquí (en dB)
-    clip.start();
-  } catch (Exception e) {
-    e.printStackTrace();
-  }
-}
-
-
 
   // corre el hilo del juego para actualizar y renderizar imágenes (Calcula los tiempos de cada frame para que sea estable)
   @Override
