@@ -20,7 +20,7 @@ public abstract class Constant {
   public static final String PIPE_IMG_PATH = "./assets/img/pipe.png";
   public static final String BACKGROUND_IMG_PATH = "./assets/img/background.png";
 
-  public static final String FLY_SOUND_PATH = "./FlappyBird/assets/audio/fly.wav";
-  public static final String HIT_SOUND_PATH = "./FlappyBird/assets/audio/hit.wav";
-  public static final String SCORE_SOUND_PATH = "./FlappyBird/assets/audio/score.wav";
+  public static final String FLY_SOUND_PATH = "./assets/audio/fly.wav";
+  public static final String HIT_SOUND_PATH = "./assets/audio/hit.wav";
+  public static final String SCORE_SOUND_PATH = "./assets/audio/score.wav";
 }
