@@ -32,13 +32,12 @@ public class GamePanel extends JPanel implements Runnable {
           case GAME_READY:
             gameState = GAME_STARTED;
             bird.setState(Bird.BIRD_JUMPING);
-            playSound(FLY_SOUND_PATH);
-          break;
-
-          // caso 2, el juego está en desarrollo
+            
+            // caso 2, el juego está en desarrollo
           case GAME_STARTED:
-          if (bird.getState() == Bird.BIRD_DEAD) 
-            gameState = GAME_STOPPED;
+            playSound(FLY_SOUND_PATH);
+            if (bird.getState() == Bird.BIRD_DEAD) 
+              gameState = GAME_STOPPED;
           break;
 
           // caso 3, el juego termino
