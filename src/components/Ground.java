@@ -37,10 +37,8 @@ public class Ground {
     if (bird.getPosY() >= posy) {
       bird.setPosY(posy - 10);
       bird.setState(Bird.BIRD_DEAD);
-      x1 = velX;
-      x2 = velX;
-      return;
     } 
+
     if (bird.getState() == Bird.BIRD_JUMPING || bird.getState() == Bird.BIRD_IDLE) {
       x1 -= velX;
       x2 -= velX;
@@ -51,7 +49,6 @@ public class Ground {
         x2 = WIDTH;
     }
   }
-
 
   // Método para dibujar el fondo
   public void draw(Graphics g) {

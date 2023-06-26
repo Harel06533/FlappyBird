@@ -95,6 +95,13 @@ public class Bird {
     }
   }
 
+  // reinicia a valores default luego de morir
+  public void restart () {
+    state = BIRD_IDLE;  
+    posy = initialY;
+    posx = initialX;
+  }
+
   // dibuja el elemento en pantalla
   public void draw (Graphics g) {
     g.drawImage(birdImages[animationIndex], posx, posy, null);
