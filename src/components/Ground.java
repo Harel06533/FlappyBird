@@ -13,6 +13,7 @@ import static util.Constant.WIDTH;
  * @author Jorge Francisco Arriaga Escamilla
 */
 public class Ground {
+  // atributos
   private Bird bird;
   private BufferedImage GroundImage;
 
@@ -34,11 +35,13 @@ public class Ground {
 
   // movimiento
   public void movement() {
+    // si el pájaro toca el suelo, cambia el estado del pájaro a muerto
     if (bird.getPosY() >= posy) {
       bird.setPosY(posy - 10);
       bird.setState(Bird.BIRD_DEAD);
     } 
 
+    // moverá el suelo únicamente si el pájaro está en estado normal o brincando
     if (bird.getState() == Bird.BIRD_JUMPING || bird.getState() == Bird.BIRD_IDLE) {
       x1 -= velX;
       x2 -= velX;
@@ -57,5 +60,6 @@ public class Ground {
     g.drawImage(GroundImage, x2, posy, null);
   }
 
+  // retorna la posición en y
   public int getPosY () { return posy; }
 }

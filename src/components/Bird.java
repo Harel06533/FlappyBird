@@ -107,23 +107,27 @@ public class Bird {
     g.drawImage(birdImages[animationIndex], posx, posy, null);
   }
 
-  // setters
+  // la velocidad en y cuando brinca el pájaro
+  public void jump () {
+    yVelocity = -7;
+  }
+
+  // setea el estado del pájaro (Normal, Jugando o Muerto)
   public void setState (int state) {
     this.state = state;
   }
 
+  // setea la posición en y del pájaro
   public void setPosY (int posy) {
     this.posy = posy;
   }
 
-  public void setYVelocity (double yVelocity) {
-    this.yVelocity = yVelocity;
-  }
-
+  // keyFlag se hace true (Esto es para determinar cuándo se presionó una tecla)
   public void pressKey () {
     keyFlag = true;
   }
 
+  // keyFlag se hace false (Esto determina cuándo se liberó la tecla presionada)
   public void releaseKey () {
     keyFlag = false;
   }

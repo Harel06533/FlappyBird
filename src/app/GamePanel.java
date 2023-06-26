@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
   public class BirdKeyListener implements KeyListener {
     @Override
     public void keyPressed (KeyEvent e) {
-      if (e.getKeyCode() == KeyEvent.VK_SPACE && bird.isKeyReleased()) {
+      if (e.getKeyCode() == KeyEvent.VK_SPACE && bird.isKeyReleased()) {    //--> Solo ocurre cuando se presionó el espacio y no estaba presionando ninguna tecla
         switch (gameState) {
 
           // caso 1, el juego está listo para empezar
@@ -43,11 +43,12 @@ public class GamePanel extends JPanel implements Runnable {
             restart();
           break;
         }
-        bird.setYVelocity(-7);
-        bird.pressKey();
+        bird.jump();            //--> Brinca
+        bird.pressKey();        //--> Variable flag que determina si está o no presionada la tecla
       }
     }
     
+    // qué ocurre cuándo se deja de presionar la tecla
     @Override
     public void keyReleased(KeyEvent e) {
       if (e.getKeyCode() == KeyEvent.VK_SPACE) {
