@@ -84,7 +84,8 @@ public class Bird {
   public void update() {
     animate();
     if (state == BIRD_IDLE || state == BIRD_DEAD) {
-      animationIndex = 0;
+      if (state == BIRD_DEAD)
+        animationIndex = 0;
       yVelocity = 0;
     }
     yVelocity += ACC_Y;
