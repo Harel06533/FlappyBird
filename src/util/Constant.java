@@ -12,9 +12,8 @@ public abstract class Constant {
   public static final String TITLE = "Flappy Bird " + version;
 
   // path (es probable que se tengan que actualizar los datos)
-  public static final String[][] BIRD_IMGS_PATH = {
-    {"./assets/img/bird0.png", "./assets/img/bird1.png", "./assets/img/bird2.png", "./assets/img/bird3.png", "./assets/img/bird4.png", "./assets/img/bird5.png"}, 
-    {"./assets/img/down0.png", "./assets/img/down1.png", "./assets/img/down2.png", "./assets/img/down3.png", "./assets/img/down4.png", "./assets/img/down5.png"}
+  public static final String[] BIRD_IMGS_PATH = {
+    "./assets/img/bird0.png", "./assets/img/bird1.png", "./assets/img/bird2.png", "./assets/img/bird3.png", "./assets/img/bird4.png", "./assets/img/bird5.png"
   };
   public static final String GROUND_IMG_PATH = "./assets/img/ground.png";
   public static final String PIPE_IMG_PATH = "./assets/img/pipe.png";

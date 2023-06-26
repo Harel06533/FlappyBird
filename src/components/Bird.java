@@ -1,31 +1,23 @@
 package components;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
-import app.GamePanel;
-import components.tools.BirdKeyListener;
 
 import static util.Constant.WIDTH; 
 import static util.Constant.HEIGHT;
 
 import static util.Constant.BIRD_IMGS_PATH;
 
-import static util.Constant.FLY_SOUND_PATH;
-import static util.Constant.HIT_SOUND_PATH;
-import static util.Constant.SCORE_SOUND_PATH;
-
 import util.BaseUtil;
 
+/** Clase de pájaro 
+ * @author Harel Alejandro Olguín Gaytán
+*/
 public class Bird {
   // constantes
-  public static final int MOVEMENT_STATES = 2;
-
   public static final int BIRD_IDLE = 0;
-  public static final int BIRD_MOVIND = 1;
-  public static final int BIRD_FALLING = 2;
-  public static final int BIRD_DEAD = 3;
+  public static final int BIRD_JUMPING = 1;
+  public static final int BIRD_DEAD = 2;
 
   private static final double MAX_VEL_Y = 12;
   private static final double ACC_Y = 0.6;
@@ -36,53 +28,46 @@ public class Bird {
   //atributos
   private static Bird instance = null;
 
-
   private int animationTick;
   private int animationIndex;
   private int animationSpeed;
 
   private int state;
+
   private int posx;
   private int posy;
   
-  private double xVelocity;
   private double yVelocity;
 
+  private boolean keyFlag;
 
-  private GamePanel parentPanel;
-  private BirdKeyListener mainKeyListener;
-
-  private BufferedImage[][] birdImages;
-
+  private BufferedImage[] birdImages;
 
   // constructor privado (inicializa todas las variables necesarias)
-  private Bird (GamePanel parentPanel, BirdKeyListener mainKeyListener) {
+  private Bird () {
+    posx = initialX;
+    posy = initialY;
+    keyFlag = false;
+    yVelocity = 0;
+
     animationSpeed = 8;
     animationTick = 0;
     animationIndex = 0;
 
-    posx = initialX;
-    posy = initialY;
+    setState(BIRD_IDLE);
 
-    state = BIRD_IDLE;
-    
-    birdImages = new BufferedImage[BIRD_IMGS_PATH.length][BIRD_IMGS_PATH[0].length];
+    birdImages = new BufferedImage[BIRD_IMGS_PATH.length];
     for (int i = 0; i < BIRD_IMGS_PATH.length; i++) {
-      for (int j = 0; j < BIRD_IMGS_PATH[i].length; j++) {
-        birdImages[i][j] = BaseUtil.loadBufferedImage(BIRD_IMGS_PATH[i][j]);
-      }
+      birdImages[i] = BaseUtil.loadBufferedImage(BIRD_IMGS_PATH[i]);
     }
-    this.parentPanel = parentPanel;
-    this.mainKeyListener = mainKeyListener;
   }
 
   // obtención de la instancia
-  public static Bird getBird (GamePanel parentPanel, BirdKeyListener mainkKeyListener) {
+  public static Bird getBird () {
     if (instance == null) 
-      instance = new Bird(parentPanel, mainkKeyListener);
+      instance = new Bird();
     return instance;
   }
-
 
   // suma in índice para iterar en los sprites del pájaro y animarlos en base a los fps
   public void animate () {
@@ -95,12 +80,51 @@ public class Bird {
     }
   }
 
-// actualiza la información del jugador basado en su estado
-public void update() {
-  animate();
-}
-
-// dibuja el elemento en pantalla
-  public void draw (Graphics g) {
+  // actualiza la información del jugador basado en su estado
+  public void update() {
+    animate();
+    if (state == BIRD_IDLE || state == BIRD_DEAD) {
+      animationIndex = 0;
+      yVelocity = 0;
+    }
+    yVelocity += ACC_Y;
+    posy += yVelocity;
+    if (yVelocity > MAX_VEL_Y) {
+      yVelocity = MAX_VEL_Y;
+    }
   }
+
+  // dibuja el elemento en pantalla
+  public void draw (Graphics g) {
+    g.drawImage(birdImages[animationIndex], posx, posy, null);
+  }
+
+  // setters
+  public void setState (int state) {
+    this.state = state;
+  }
+
+  public void setPosY (int posy) {
+    this.posy = posy;
+  }
+
+  public void setYVelocity (double yVelocity) {
+    this.yVelocity = yVelocity;
+  }
+
+  public void pressKey () {
+    keyFlag = true;
+  }
+
+  public void releaseKey () {
+    keyFlag = false;
+  }
+
+  // getters
+  public int getState () { return state; }
+  public int getPosY () { return posy; }
+  public double getyVelocity () { return yVelocity; }
+  public boolean isKeyPressed () { return (keyFlag == true); }
+  public boolean isKeyReleased () { return (keyFlag == false); }
+
 }
