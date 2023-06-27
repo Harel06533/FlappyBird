@@ -92,11 +92,7 @@ public class Bird {
       }
       yVelocity = 0;
     }
-    yVelocity += ACC_Y;
-    posy += yVelocity;
-    if (yVelocity > MAX_VEL_Y) {
-      yVelocity = MAX_VEL_Y;
-    }
+    fall();
   }
 
   // reinicia a valores default luego de morir
@@ -113,8 +109,16 @@ public class Bird {
   }
 
   // la velocidad en y cuando brinca el pájaro
-  public void jump () {
+  public void fly () {
     yVelocity = -7;
+  }
+
+  // caída libre del pájaro
+  public void fall () {
+    yVelocity += ACC_Y;
+    posy += yVelocity;
+    if (yVelocity > MAX_VEL_Y)
+      yVelocity = MAX_VEL_Y;
   }
 
   // setea el estado del pájaro (Normal, Jugando o Muerto)

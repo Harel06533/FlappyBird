@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
 
 import components.Bird;
 import components.Ground;
@@ -17,9 +16,6 @@ import components.Background;
 import static util.Constant.FRAMERATE;
 import static util.Constant.FLY_SOUND_PATH;
 import static util.Constant.HIT_SOUND_PATH;
-import static util.Constant.SCORE_SOUND_PATH;
-import static util.Constant.LOGO_IMG_PATH;
-
 
 import static util.SoundUtil.playSound;
 
@@ -47,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable {
             restart();
           break;
         }
-        bird.jump();            //--> Brinca
+        bird.fly();            //--> Brinca
         bird.pressKey();        //--> Variable flag que determina si está o no presionada la tecla
       }
     }
