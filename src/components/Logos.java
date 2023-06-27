@@ -28,9 +28,9 @@ public class Logos {
      * Carga la imagen del logotipo y establece su posición en el centro de la pantalla.
      */
     public Logos() {
-        this.logoImage = BaseUtil.loadBufferedImage(LOGO_IMG_PATH);
-        this.startImage = BaseUtil.loadBufferedImage(START_IMG_PATH);
-        this.lostImage = BaseUtil.loadBufferedImage(LOST_IMG_PATH);
+        setLogoImage();
+        setStartImage();
+        setLostImage();
 
         if (logoImage != null) {
             int logoWidth = logoImage.getWidth();
@@ -60,6 +60,18 @@ public class Logos {
             this.lostx = 0;
             this.losty = 0;
         }
+    }
+
+    public void setLogoImage(){
+        this.logoImage = BaseUtil.loadBufferedImage(LOGO_IMG_PATH);
+    }
+
+    public void setStartImage(){
+        this.startImage = BaseUtil.loadBufferedImage(START_IMG_PATH);
+    }
+
+    public void setLostImage(){
+        this.lostImage = BaseUtil.loadBufferedImage(LOST_IMG_PATH);
     }
 
     /**
