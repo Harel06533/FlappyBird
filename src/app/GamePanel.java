@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
 import components.Bird;
 import components.Ground;
 import components.Logos;
+import components.Pipe;
 import components.Background;
 
 import static util.Constant.FRAMERATE;
@@ -81,6 +82,7 @@ public class GamePanel extends JPanel implements Runnable {
   private Background background;
   private Ground ground;
   private Logos logo;
+  private Pipe pipe;
 
   // constructor
   public GamePanel (int width, int height) {
@@ -106,6 +108,7 @@ public class GamePanel extends JPanel implements Runnable {
     background = new Background();
     ground = new Ground();
     bird = Bird.getBird();
+    pipe = new Pipe();
     logo = new Logos();
     gameState = GAME_READY;
   }
@@ -120,6 +123,9 @@ public class GamePanel extends JPanel implements Runnable {
 
       if (gameState == GAME_READY) // si el juego esta listo para empezar
           logo.draw(g); // dibuja el titulo y el space bar
+      
+     if (gameState == GAME_STARTED) 
+        pipe.draw(g);
 
       if(gameState == GAME_STOPPED) // si el juego se para
         logo.draw_lost(g); // dibuja el game over
@@ -172,6 +178,7 @@ public class GamePanel extends JPanel implements Runnable {
       timer += (currentTime - lastTime);
       if (delta > 0) {
         update();
+        pipe.update();
         repaint();
         delta--;
         fps++;
