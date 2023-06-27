@@ -107,7 +107,7 @@ public class GamePanel extends JPanel implements Runnable {
     ground = new Ground();
     bird = Bird.getBird();
     logo = new Logos();
-    setGameState(GAME_READY);
+    gameState = GAME_READY;
   }
 
   // sobreescribe el componente para pintar los gráficos
@@ -136,7 +136,7 @@ public class GamePanel extends JPanel implements Runnable {
 
   // reinicia
   public void restart () {
-    setGameState(GAME_READY);
+    gameState = GAME_READY;
     bird.restart();
   }
 
