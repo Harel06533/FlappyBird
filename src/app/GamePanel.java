@@ -36,10 +36,10 @@ public class GamePanel extends JPanel implements Runnable {
           case GAME_READY:
             gameState = GAME_STARTED;
             bird.setState(Bird.BIRD_JUMPING);
-          break;
             
             // caso 2, el juego está en desarrollo (En este caso no ocurre nada dentro del switch)
           case GAME_STARTED:
+            playSound(FLY_SOUND_PATH);
           break;
 
           // caso 3, el juego termino
@@ -147,8 +147,17 @@ public class GamePanel extends JPanel implements Runnable {
   // actualiza la información del juego para ser calculado en pantalla
   public void update () {
     bird.update();
-    if (bird.getState() == Bird.BIRD_DEAD)
+    // si el pájaro toca el suelo, cambia su estado a muerto
+    if (bird.getPosY() >= ground.getPosY()) {
+      bird.setPosY(ground.getPosY() - 10);
+      bird.setState(Bird.BIRD_DEAD);
+    }
+
+    if (bird.getState() == Bird.BIRD_DEAD) {  // si el pájaro murio
+      if (!bird.birdHasHit())                 // si el pájaro murió pero aún no ha "chocado", 
+        playSound(HIT_SOUND_PATH);            // pone el sonido de choque
       gameState = GAME_STOPPED;
+    }
   }
 
   // corre el hilo del juego para actualizar y renderizar imágenes (Calcula los tiempos de cada frame para que sea estable)

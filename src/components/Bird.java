@@ -40,6 +40,7 @@ public class Bird {
   private double yVelocity;
 
   private boolean keyFlag;
+  private boolean birdHit;
 
   private BufferedImage[] birdImages;
 
@@ -48,6 +49,7 @@ public class Bird {
     posx = initialX;
     posy = initialY;
     keyFlag = false;
+    birdHit = false;
     yVelocity = 0;
 
     animationSpeed = 8;
@@ -84,8 +86,10 @@ public class Bird {
   public void update() {
     animate();
     if (state == BIRD_IDLE || state == BIRD_DEAD) {
-      if (state == BIRD_DEAD)
+      if (state == BIRD_DEAD) {
+        birdHit = true;             //--> El pájaro al estar muerto, significa que chocó
         animationIndex = 0;
+      }
       yVelocity = 0;
     }
     yVelocity += ACC_Y;
@@ -97,9 +101,10 @@ public class Bird {
 
   // reinicia a valores default luego de morir
   public void restart () {
-    state = BIRD_IDLE;  
+    setState(BIRD_IDLE);
     posy = initialY;
     posx = initialX;
+    birdHit = false;
   }
 
   // dibuja el elemento en pantalla
@@ -138,5 +143,6 @@ public class Bird {
   public double getyVelocity () { return yVelocity; }
   public boolean isKeyPressed () { return (keyFlag == true); }
   public boolean isKeyReleased () { return (keyFlag == false); }
+  public boolean birdHasHit () { return birdHit; }
 
 }
