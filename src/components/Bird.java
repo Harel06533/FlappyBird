@@ -22,8 +22,8 @@ public class Bird {
   private static final double MAX_VEL_Y = 12;
   private static final double ACC_Y = 0.6;
 
-  private static final int initialX = WIDTH >> 1;
-  private static final int initialY = HEIGHT >> 1;
+  private static final int initialX = (WIDTH / 2) - 25;
+  private static final int initialY = (HEIGHT / 2) - 70;
 
   //atributos
   private static Bird instance = null;

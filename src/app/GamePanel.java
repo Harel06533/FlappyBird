@@ -7,15 +7,19 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
 import components.Bird;
 import components.Ground;
+import components.Logos;
 import components.Background;
 
 import static util.Constant.FRAMERATE;
 import static util.Constant.FLY_SOUND_PATH;
 import static util.Constant.HIT_SOUND_PATH;
 import static util.Constant.SCORE_SOUND_PATH;
+import static util.Constant.LOGO_IMG_PATH;
+
 
 import static util.SoundUtil.playSound;
 
@@ -80,6 +84,7 @@ public class GamePanel extends JPanel implements Runnable {
 
   private Background background;
   private Ground ground;
+  private Logos logo;
 
   // constructor
   public GamePanel (int width, int height) {
@@ -105,18 +110,27 @@ public class GamePanel extends JPanel implements Runnable {
     background = new Background();
     ground = new Ground();
     bird = Bird.getBird();
+    logo = new Logos();
     setGameState(GAME_READY);
   }
 
   // sobreescribe el componente para pintar los gráficos
   @Override
   protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
-    background.draw(g);
-    ground.draw(g);// dibuja el piso
-    bird.draw(g);
-    g.dispose();
+      super.paintComponent(g);
+      background.draw(g);
+      ground.draw(g);
+      bird.draw(g);
+
+      if (gameState == GAME_READY) // si el juego esta listo para empezar
+          logo.draw(g);// dibuja el titulo y el space bar
+
+      if(gameState == GAME_STOPPED) // si el juego se para
+        logo.draw_lost(g); // dibuja el game over
+
+      g.dispose();
   }
+
 
   // inicializa el hilo
   public void start () {
