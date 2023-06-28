@@ -15,10 +15,6 @@ import components.Pipe;
 import components.Background;
 
 import static util.Constant.FRAMERATE;
-import static util.Constant.FLY_SOUND_PATH;
-import static util.Constant.HIT_SOUND_PATH;
-
-import static util.SoundUtil.playSound;
 
 /** Implementa un componente para trabajar gráficos encima */
 public class GamePanel extends JPanel implements Runnable {
@@ -36,7 +32,6 @@ public class GamePanel extends JPanel implements Runnable {
             
             // caso 2, el juego está en desarrollo (En este caso no ocurre nada dentro del switch)
           case GAME_STARTED:
-            playSound(FLY_SOUND_PATH);
           break;
 
           // caso 3, el juego termino
@@ -123,9 +118,6 @@ public class GamePanel extends JPanel implements Runnable {
     if (gameState == GAME_READY) // si el juego esta listo para empezar
       logo.draw(g); // dibuja el titulo y el space bar
     
-    if (gameState == GAME_STARTED) 
-      pipe.draw(g);
-    
     if(gameState == GAME_STOPPED) // si el juego se para
       logo.draw_lost(g); // dibuja el game over
     
@@ -149,23 +141,9 @@ public class GamePanel extends JPanel implements Runnable {
   // actualiza la información del juego para ser calculado en pantalla
   public void update () {
     bird.update();
-
-    // si la posición del pájaro está en más lejos que la pantalla, lo deja ahí
-    if (height - bird.getPosY() >= height) {
-      bird.setPosY(-5);
-    }
-    
-    // si el pájaro toca el suelo, cambia su estado a muerto
-    if (bird.getPosY() >= ground.getPosY() - 32) {
-      bird.setPosY(ground.getPosY() - 32);
-      bird.setState(Bird.BIRD_DEAD);
-    }
-
-    if (bird.getState() == Bird.BIRD_DEAD) {  // si el pájaro murio
-      if (!bird.birdHasHit())                 // si el pájaro murió pero aún no ha "chocado", 
-        playSound(HIT_SOUND_PATH);            // pone el sonido de choque
+    // si el pájaro está muerto, entonces el juego está en STOP
+    if (bird.getState() == Bird.BIRD_DEAD)
       gameState = GAME_STOPPED;
-    }
   }
 
   // corre el hilo del juego para actualizar y renderizar imágenes (Calcula los tiempos de cada frame para que sea estable)
@@ -176,7 +154,6 @@ public class GamePanel extends JPanel implements Runnable {
     double delta = 0;
     long timer = 0;
     long fps = 0;
-
     while (true) {
       long currentTime = System.nanoTime();
       delta += (currentTime - lastTime) / timePerFrame;

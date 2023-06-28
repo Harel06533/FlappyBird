@@ -8,6 +8,13 @@ import static util.Constant.HEIGHT;
 
 import static util.Constant.BIRD_IMGS_PATH;
 
+import static util.Constant.FLY_SOUND_PATH;
+import static util.Constant.HIT_SOUND_PATH;
+import static util.Constant.SCORE_SOUND_PATH;
+
+import util.SoundUtil;
+
+
 import util.BaseUtil;
 
 /** Clase de pájaro 
@@ -73,6 +80,15 @@ public class Bird {
 
   // suma in índice para iterar en los sprites del pájaro y animarlos en base a los fps
   public void animate () {
+    // si el pájaro murió, no anima nada
+    if (state == BIRD_DEAD) {
+      animationIndex = 0;
+      if (hitFlag == false)
+        hitSound();
+      hitFlag = true;
+      return;
+    }
+    // animación
     animationTick++;
     if (animationTick >= animationSpeed) {
       animationTick = 0;
@@ -85,13 +101,13 @@ public class Bird {
   // actualiza la información del jugador basado en su estado
   public void update() {
     animate();
-    if (state == BIRD_IDLE || state == BIRD_DEAD) {
-      if (state == BIRD_DEAD) {
-        hitFlag = true;             //--> El pájaro al estar muerto, significa que chocó
-        animationIndex = 0;
-      }
+    // si la posición en y está fuera de la pantalla
+    if (posy <= 1) 
+      posy = -5;
+
+    // si el estado es IDLE o DEAD, el pájaro no poseé velocidad en 'y'
+    if (state == BIRD_IDLE || state == BIRD_DEAD) 
       yVelocity = 0;
-    }
 
     fall();
   }
@@ -104,6 +120,21 @@ public class Bird {
     hitFlag = false;
   }
 
+  // sonido al volar
+  public void flySound () {
+    SoundUtil.playSound(FLY_SOUND_PATH);
+  }
+
+  // sonido al hacer hit
+  public void hitSound () {
+    SoundUtil.playSound(HIT_SOUND_PATH);
+  }
+
+  // sonido al hacer score
+  public void scoreSound () {
+    SoundUtil.playSound(SCORE_SOUND_PATH);
+  }
+
   // dibuja el elemento en pantalla
   public void draw (Graphics g) {
     g.drawImage(birdImages[animationIndex], posx, posy, null);
@@ -111,6 +142,7 @@ public class Bird {
 
   // la velocidad en y cuando brinca el pájaro
   public void fly () {
+    flySound();
     yVelocity = -7;
   }
 
@@ -148,6 +180,4 @@ public class Bird {
   public double getyVelocity () { return yVelocity; }
   public boolean isKeyPressed () { return (keyFlag == true); }
   public boolean isKeyReleased () { return (keyFlag == false); }
-  public boolean birdHasHit () { return hitFlag; }
-
 }
