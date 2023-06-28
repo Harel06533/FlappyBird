@@ -12,6 +12,7 @@ import components.Bird;
 import components.Ground;
 import components.Logos;
 import components.Pipe;
+import components.PipeHandler;
 import components.Background;
 
 import static util.Constant.FRAMERATE;
@@ -78,6 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
   private Ground ground;
   private Logos logo;
   private Pipe pipe;
+  private PipeHandler pipeHandler;
 
   // constructor
   public GamePanel (int width, int height) {
@@ -85,6 +87,7 @@ public class GamePanel extends JPanel implements Runnable {
     this.height = height;
     initPanel();
     initGame();
+    pipeHandler = new PipeHandler();
 
   }
 
@@ -103,7 +106,7 @@ public class GamePanel extends JPanel implements Runnable {
     background = new Background();
     ground = new Ground();
     bird = Bird.getBird();
-    pipe = new Pipe();
+    //pipe = new Pipe();
     logo = new Logos();
     gameState = GAME_READY;
   }
@@ -119,7 +122,7 @@ public class GamePanel extends JPanel implements Runnable {
       logo.draw(g); // dibuja el titulo y el space bar
 
     if (gameState == GAME_STARTED)
-      pipe.draw(g);
+      pipeHandler.draw(g);
     
     if(gameState == GAME_STOPPED) // si el juego se para
       logo.draw_lost(g); // dibuja el game over
@@ -139,6 +142,7 @@ public class GamePanel extends JPanel implements Runnable {
   public void restart () {
     gameState = GAME_READY;
     bird.restart();
+    pipeHandler.reset(); 
   }
 
   // actualiza la información del juego para ser calculado en pantalla
@@ -147,6 +151,9 @@ public class GamePanel extends JPanel implements Runnable {
     // si el pájaro está muerto, entonces el juego está en STOP
     if (bird.getState() == Bird.BIRD_DEAD)
       gameState = GAME_STOPPED;
+    
+
+    pipeHandler.update(); 
   }
 
   // corre el hilo del juego para actualizar y renderizar imágenes (Calcula los tiempos de cada frame para que sea estable)
