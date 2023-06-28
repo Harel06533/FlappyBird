@@ -92,6 +92,7 @@ public class Bird {
       }
       yVelocity = 0;
     }
+
     fall();
   }
 

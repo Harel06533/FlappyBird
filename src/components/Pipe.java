@@ -20,15 +20,15 @@ public class Pipe {
   // Constructor
   public Pipe() {
     pipeImage = BaseUtil.loadBufferedImage(PIPE_IMG_PATH);
+    assert pipeImage != null;
     //posx = initialX;
     randomPipe();
-
   }
 
   //Metodo para randomizar la posición de las tuberias
   public void randomPipe() {
-    int maxTop = (Bird.getBird().getPosY()-PIPE_GAP); //  Obtiene la posicion y y le resta el espacio que hay entre las tuberias
-    int minTop = maxTop-PIPE_HEIGHT; // Se obtiene restando la altura de la tuberia a la altura max  de la parte superior
+    int maxTop = (Bird.getBird().getPosY() - PIPE_GAP); //  Obtiene la posicion y y le resta el espacio que hay entre las tuberias
+    int minTop = maxTop - PIPE_HEIGHT; // Se obtiene restando la altura de la tuberia a la altura max  de la parte superior
     topPipeHeight = BaseUtil.getRandomNumber(minTop, maxTop); // Se genera una altura aleatoria para la parte superior
     bottomPipeHeight = topPipeHeight + PIPE_HEIGHT +PIPE_GAP; // Se calcula sumando la altura de la parte superior, la altura de la tuberia y el espacio entre tuberias
   }

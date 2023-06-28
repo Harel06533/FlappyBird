@@ -116,21 +116,21 @@ public class GamePanel extends JPanel implements Runnable {
   // sobreescribe el componente para pintar los gráficos
   @Override
   protected void paintComponent(Graphics g) {
-      super.paintComponent(g);
-      background.draw(g);
-      ground.draw(g);
-      bird.draw(g);
-
-      if (gameState == GAME_READY) // si el juego esta listo para empezar
-          logo.draw(g); // dibuja el titulo y el space bar
-      
-     if (gameState == GAME_STARTED) 
-        pipe.draw(g);
-
-      if(gameState == GAME_STOPPED) // si el juego se para
-        logo.draw_lost(g); // dibuja el game over
-
-      g.dispose();
+    super.paintComponent(g);
+    background.draw(g);
+    bird.draw(g);
+    
+    if (gameState == GAME_READY) // si el juego esta listo para empezar
+      logo.draw(g); // dibuja el titulo y el space bar
+    
+    if (gameState == GAME_STARTED) 
+      pipe.draw(g);
+    
+    if(gameState == GAME_STOPPED) // si el juego se para
+      logo.draw_lost(g); // dibuja el game over
+    
+    ground.draw(g);
+    g.dispose();
   }
 
 
@@ -149,9 +149,15 @@ public class GamePanel extends JPanel implements Runnable {
   // actualiza la información del juego para ser calculado en pantalla
   public void update () {
     bird.update();
+
+    // si la posición del pájaro está en más lejos que la pantalla, lo deja ahí
+    if (height - bird.getPosY() >= height) {
+      bird.setPosY(-5);
+    }
+    
     // si el pájaro toca el suelo, cambia su estado a muerto
-    if (bird.getPosY() >= ground.getPosY()) {
-      bird.setPosY(ground.getPosY() - 10);
+    if (bird.getPosY() >= ground.getPosY() - 32) {
+      bird.setPosY(ground.getPosY() - 32);
       bird.setState(Bird.BIRD_DEAD);
     }
 
@@ -178,7 +184,6 @@ public class GamePanel extends JPanel implements Runnable {
       timer += (currentTime - lastTime);
       if (delta > 0) {
         update();
-        pipe.update();
         repaint();
         delta--;
         fps++;
