@@ -117,6 +117,9 @@ public class GamePanel extends JPanel implements Runnable {
     
     if (gameState == GAME_READY) // si el juego esta listo para empezar
       logo.draw(g); // dibuja el titulo y el space bar
+
+    if (gameState == GAME_STARTED)
+      pipe.draw(g);
     
     if(gameState == GAME_STOPPED) // si el juego se para
       logo.draw_lost(g); // dibuja el game over

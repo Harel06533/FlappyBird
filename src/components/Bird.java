@@ -29,8 +29,8 @@ public class Bird {
   private static final double MAX_VEL_Y = 12;
   private static final double ACC_Y = 0.6;
 
-  private static final int initialX = (WIDTH / 2) - 25;
-  private static final int initialY = (HEIGHT / 2) - 70;
+  private static final int initialX = (WIDTH >> 1) - 25;
+  private static final int initialY = (HEIGHT >> 1) - 70;
 
   //atributos
   private static Bird instance = null;
@@ -83,9 +83,6 @@ public class Bird {
     // si el pájaro murió, no anima nada
     if (state == BIRD_DEAD) {
       animationIndex = 0;
-      if (hitFlag == false)
-        hitSound();
-      hitFlag = true;
       return;
     }
     // animación
@@ -101,14 +98,20 @@ public class Bird {
   // actualiza la información del jugador basado en su estado
   public void update() {
     animate();
-    // si la posición en y está fuera de la pantalla
+    // si la posición en 'y' está fuera de la pantalla, regresa al pájaro a una posición válida
     if (posy <= 1) 
       posy = -5;
 
-    // si el estado es IDLE o DEAD, el pájaro no poseé velocidad en 'y'
+    // si el pájaro está IDLE o DEAD, la velocidad en Y es 0
     if (state == BIRD_IDLE || state == BIRD_DEAD) 
       yVelocity = 0;
 
+    // si el pájaro está muerto, checa si ya chocó, y si aun no, suena el sonido al chocar y determina que ahora sí chocó
+    if (state == BIRD_DEAD) {
+      if (hitFlag == false)
+        hitSound();
+      hitFlag = true;
+    }
     fall();
   }
 
@@ -148,6 +151,8 @@ public class Bird {
 
   // caída libre del pájaro
   public void fall () {
+    if (state == BIRD_DEAD)
+      return;
     yVelocity += ACC_Y;
     posy += yVelocity;
     if (yVelocity > MAX_VEL_Y)
