@@ -109,6 +109,7 @@ public class GamePanel extends JPanel implements Runnable {
     //pipe = new Pipe();
     logo = new Logos();
     gameState = GAME_READY;
+    
   }
 
   // sobreescribe el componente para pintar los gráficos
@@ -123,6 +124,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     if (gameState == GAME_STARTED)
       pipeHandler.draw(g);
+
     
     if(gameState == GAME_STOPPED) // si el juego se para
       logo.draw_lost(g); // dibuja el game over

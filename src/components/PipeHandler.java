@@ -9,7 +9,7 @@ import static util.Constant.WIDTH;
 import static util.Constant.HEIGHT;
 
 public class PipeHandler {
-    private List<Pipe> pipes; // Lista de tuberías
+    private List<Pipe> pipes;  
     private Random random; // Generador de números aleatorios
     private boolean firstGame; // Bandera que indica si es el primer juego
 

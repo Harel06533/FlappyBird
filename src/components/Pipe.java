@@ -13,8 +13,8 @@ import static util.Constant.PIPE_BOTTOM_IMG_PATH;
 public class Pipe {
   // constantes
   protected static final int GAP = 100;
-  protected static final int PIPE_WIDTH = 69;
-  protected static final int PIPE_HEIGHT = 240;
+  protected static final int PIPE_WIDTH = 65;
+  protected static final int PIPE_HEIGHT = 300;
   private static final int X_VELOCITY = 3;
 
   // atributos

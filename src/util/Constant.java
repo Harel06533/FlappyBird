@@ -25,6 +25,6 @@ public abstract class Constant {
   public static final String HIT_SOUND_PATH = "./assets/audio/hit.wav";
   public static final String SCORE_SOUND_PATH = "./assets/audio/score.wav";
 
-  public static final String PIPE_TOP_IMG_PATH = "./assets/img/pipe_top.png";
-  public static final String PIPE_BOTTOM_IMG_PATH = "./assets/img/pipe_bottom.png";
+  public static final String PIPE_TOP_IMG_PATH = "./assets/img/pipe2_top.png";
+  public static final String PIPE_BOTTOM_IMG_PATH = "./assets/img/pipe2_bottom.png";
 }
