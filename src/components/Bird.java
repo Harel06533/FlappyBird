@@ -23,41 +23,40 @@ import util.BaseUtil;
 */
 public class Bird {
   // constantes
-  public static final int BIRD_IDLE = 0;
-  public static final int BIRD_JUMPING = 1;
-  public static final int BIRD_FALLING = 2;
-  public static final int BIRD_DEAD = 3;
+  public static final int BIRD_IDLE = 0;                            //--> El pájaro está parado
+  public static final int BIRD_JUMPING = 1;                         //--> El pájaro está brincando
+  public static final int BIRD_DEAD = 2;                            //--> El pájaro está muerto
 
-  private static final double MAX_VEL_Y = 12;
-  private static final double ACC_Y = 0.6;
-  private static final double JUMP_FORCE = -7;
+  private static final double MAX_VEL_Y = 12;                       //--> La velocidad máxima que puede tener el pájaro
+  private static final double ACC_Y = 0.6;                          //--> La aceleración de la velocidad
+  private static final double JUMP_FORCE = -7;                      //--> La velocidad hacía arriba al brincar
 
-  private static final int initialX = (WIDTH >> 1) - 25;
-  private static final int initialY = (HEIGHT >> 1) - 70;
+  private static final int INITIAL_X = (WIDTH >> 1) - 25;            //--> Posición inicial en 'x'
+  private static final int INITIAL_Y = (HEIGHT >> 1) - 70;           //--> Posición inicial en 'y'
 
   //atributos
-  private static Bird instance = null;
+  private static Bird instance = null;                               //--> La instancia del pájaro
 
-  private int animationTick;
-  private int animationIndex;
-  private int animationSpeed;
+  private int animationTick;                                         //--> La cantidad de ticks antes de la animación
+  private int animationSpeed;                                        //--> La velocidad de la animación
+  private int animationIndex;                                        //--> el índice de la imágen para animar
 
-  private int state;
+  private int state;                                                 //--> El estado del pájaro
 
-  private int posx;
-  private int posy;
+  private int posx;                                                  //--> Posición 'x' actual
+  private int posy;                                                  //--> Posición 'y' actual
   
-  private double yVelocity;
+  private double yVelocity;                                          //--> Velocidad 'y' actual
 
-  private boolean keyFlag;
-  private boolean hitFlag;
+  private boolean keyFlag;                                           //--> Determina si se está presionando una tecla
+  private boolean hitFlag;                                           //--> Determina si el pájaro ya chocó
 
-  private BufferedImage[] birdImages;
+  private BufferedImage[] birdImages;                                //--> Imágenes del pájaro para animar
 
   // constructor privado (inicializa todas las variables necesarias)
   private Bird () {
-    posx = initialX;
-    posy = initialY;
+    posx = INITIAL_X;
+    posy = INITIAL_Y;
     keyFlag = false;
     hitFlag = false;
     yVelocity = 0;
@@ -101,7 +100,6 @@ public class Bird {
   // actualiza la información del jugador basado en su estado
   public void update() {
     animate();
-    System.out.println(yVelocity);
     // si la posición en 'y' está fuera de la pantalla, regresa al pájaro a una posición válida
     if (posy <= 1) 
       posy = -5;
@@ -122,8 +120,8 @@ public class Bird {
   // reinicia a valores default luego de morir
   public void restart () {
     state = BIRD_IDLE;
-    posy = initialY;
-    posx = initialX;
+    posy = INITIAL_Y;
+    posx = INITIAL_X;
     hitFlag = false;
   }
 

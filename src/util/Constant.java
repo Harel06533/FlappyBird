@@ -13,7 +13,12 @@ public abstract class Constant {
 
   // path (es probable que se tengan que actualizar los datos)
   public static final String[] BIRD_IMGS_PATH = {
-    "./assets/img/bird0.png", "./assets/img/bird1.png", "./assets/img/bird2.png", "./assets/img/bird3.png", "./assets/img/bird4.png", "./assets/img/bird5.png"
+    "./assets/img/bird/bird0.png", 
+    "./assets/img/bird/bird1.png", 
+    "./assets/img/bird/bird2.png", 
+    "./assets/img/bird/bird3.png", 
+    "./assets/img/bird/bird4.png", 
+    "./assets/img/bird/bird5.png"
   };
   public static final String GROUND_IMG_PATH = "./assets/img/ground.png";
   public static final String BACKGROUND_IMG_PATH = "./assets/img/background.png";
