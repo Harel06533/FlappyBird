@@ -41,7 +41,7 @@ public class Ground {
       bird.setState(Bird.BIRD_DEAD);
     } 
     // moverá el suelo únicamente si el pájaro está en estado normal o brincando
-    if (bird.getState() == Bird.BIRD_JUMPING || bird.getState() == Bird.BIRD_IDLE) {
+    if (bird.getState() != Bird.BIRD_DEAD) {
       x1 -= velX;
       x2 -= velX;
 

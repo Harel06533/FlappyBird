@@ -1,6 +1,7 @@
 package components;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import static util.Constant.WIDTH; 
@@ -24,10 +25,12 @@ public class Bird {
   // constantes
   public static final int BIRD_IDLE = 0;
   public static final int BIRD_JUMPING = 1;
-  public static final int BIRD_DEAD = 2;
+  public static final int BIRD_FALLING = 2;
+  public static final int BIRD_DEAD = 3;
 
   private static final double MAX_VEL_Y = 12;
   private static final double ACC_Y = 0.6;
+  private static final double JUMP_FORCE = -7;
 
   private static final int initialX = (WIDTH >> 1) - 25;
   private static final int initialY = (HEIGHT >> 1) - 70;
@@ -98,6 +101,7 @@ public class Bird {
   // actualiza la información del jugador basado en su estado
   public void update() {
     animate();
+    System.out.println(yVelocity);
     // si la posición en 'y' está fuera de la pantalla, regresa al pájaro a una posición válida
     if (posy <= 1) 
       posy = -5;
@@ -146,12 +150,12 @@ public class Bird {
   // la velocidad en y cuando brinca el pájaro
   public void fly () {
     flySound();
-    yVelocity = -7;
+    yVelocity = JUMP_FORCE;
   }
 
   // caída libre del pájaro
   public void fall () {
-    if (state == BIRD_DEAD)
+    if (state != BIRD_JUMPING)
       return;
     yVelocity += ACC_Y;
     posy += yVelocity;
