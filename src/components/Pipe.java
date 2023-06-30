@@ -41,9 +41,9 @@ public class Pipe {
 
   // actualiza la posición de la tubería
   public void update() {
-    if (bird.getState() != Bird.BIRD_DEAD) {
-      posx -= xVelocity;
-    }
+    if (bird.getState() == Bird.BIRD_DEAD)
+      xVelocity = 0;
+    posx -= xVelocity;
   }
 
   // dibuja la tubería
