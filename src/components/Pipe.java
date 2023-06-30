@@ -48,7 +48,6 @@ public class Pipe {
 
   // dibuja la tubería
   public void draw(Graphics g) {
-    g.drawRect(0, 0, 30, 30);
     g.drawImage(topPipe, posx, posy - PIPE_HEIGHT, PIPE_WIDTH, PIPE_HEIGHT, null);
     g.drawImage(bottomPipe, posx, posy + GAP, PIPE_WIDTH, PIPE_HEIGHT, null);
   }
