@@ -11,8 +11,6 @@ import java.awt.event.KeyListener;
 import components.Bird;
 import components.Ground;
 import components.Logos;
-import components.Pipe;
-import components.PipeHandler;
 import components.Background;
 
 import static util.Constant.FRAMERATE;
@@ -29,10 +27,9 @@ public class GamePanel extends JPanel implements Runnable {
           // caso 1, el juego está listo para empezar
           case GAME_READY:
             gameState = GAME_STARTED;
-            bird.setState(Bird.BIRD_JUMPING);
-            
-            // caso 2, el juego está en desarrollo (En este caso no ocurre nada dentro del switch)
+            // caso 2, el juego está en desarrollo 
           case GAME_STARTED:
+            bird.fly();            //--> Brinca
           break;
 
           // caso 3, el juego termino
@@ -40,7 +37,6 @@ public class GamePanel extends JPanel implements Runnable {
             restart();
           break;
         }
-        bird.fly();            //--> Brinca
         bird.pressKey();        //--> Variable flag que determina si está o no presionada la tecla
       }
     }
@@ -78,8 +74,6 @@ public class GamePanel extends JPanel implements Runnable {
   private Background background;
   private Ground ground;
   private Logos logo;
-  private Pipe pipe;
-  private PipeHandler pipeHandler;
 
   // constructor
   public GamePanel (int width, int height) {
@@ -87,7 +81,6 @@ public class GamePanel extends JPanel implements Runnable {
     this.height = height;
     initPanel();
     initGame();
-    pipeHandler = new PipeHandler();
 
   }
 
@@ -122,9 +115,6 @@ public class GamePanel extends JPanel implements Runnable {
     if (gameState == GAME_READY) // si el juego esta listo para empezar
       logo.draw(g); // dibuja el titulo y el space bar
 
-    if (gameState == GAME_STARTED)
-      pipeHandler.draw(g);
-
     
     if(gameState == GAME_STOPPED) // si el juego se para
       logo.draw_lost(g); // dibuja el game over
@@ -144,7 +134,6 @@ public class GamePanel extends JPanel implements Runnable {
   public void restart () {
     gameState = GAME_READY;
     bird.restart();
-    pipeHandler.reset(); 
   }
 
   // actualiza la información del juego para ser calculado en pantalla
@@ -153,9 +142,6 @@ public class GamePanel extends JPanel implements Runnable {
     // si el pájaro está muerto, entonces el juego está en STOP
     if (bird.getState() == Bird.BIRD_DEAD)
       gameState = GAME_STOPPED;
-    
-
-    pipeHandler.update(); 
   }
 
   // corre el hilo del juego para actualizar y renderizar imágenes (Calcula los tiempos de cada frame para que sea estable)

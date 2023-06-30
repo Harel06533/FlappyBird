@@ -109,9 +109,10 @@ public class Bird {
 
     // si el pájaro está muerto, checa si ya chocó, y si aun no, suena el sonido al chocar y determina que ahora sí chocó
     if (state == BIRD_DEAD) {
-      if (hitFlag == false)
+      if (hitFlag == false) {
         hitSound();
-      hitFlag = true;
+        hitFlag = true;
+      }
     }
     fall();
   }
@@ -122,6 +123,23 @@ public class Bird {
     posy = INITIAL_Y;
     posx = INITIAL_X;
     hitFlag = false;
+  }
+
+  // la velocidad en y cuando brinca el pájaro
+  public void fly () {
+    flySound();
+    state = BIRD_JUMPING;
+    yVelocity = JUMP_FORCE;
+  }
+
+  // caída libre del pájaro
+  public void fall () {
+    if (state == BIRD_DEAD || state == BIRD_IDLE)
+      return;
+    yVelocity += ACC_Y;
+    posy += yVelocity;
+    if (yVelocity > MAX_VEL_Y)
+      yVelocity = MAX_VEL_Y;
   }
 
   // sonido al volar
@@ -144,21 +162,6 @@ public class Bird {
     g.drawImage(birdImages[animationIndex], posx, posy, null);
   }
 
-  // la velocidad en y cuando brinca el pájaro
-  public void fly () {
-    flySound();
-    yVelocity = JUMP_FORCE;
-  }
-
-  // caída libre del pájaro
-  public void fall () {
-    if (state != BIRD_JUMPING)
-      return;
-    yVelocity += ACC_Y;
-    posy += yVelocity;
-    if (yVelocity > MAX_VEL_Y)
-      yVelocity = MAX_VEL_Y;
-  }
 
   // setea el estado del pájaro (Normal, Jugando o Muerto)
   public void setState (int state) {
