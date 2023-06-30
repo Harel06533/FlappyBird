@@ -8,10 +8,9 @@ import static util.Constant.HEIGHT;
 
 import static util.BaseUtil.getRandomNumber;
 
+/** Esta clase se encarga de manejar la lógica de spawn y colocación de las tuberías */
 public class PipeHandler { 
-  // constantes
-
- 
+  // atributos
   private List<Pipe> pipeList;
   private boolean isFirstSpawn = true;
 
