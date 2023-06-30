@@ -8,6 +8,7 @@ public abstract class Constant {
   // pantalla
   public static final int WIDTH = 432;
   public static final int HEIGHT = 768;
+  public static final int GAME_VELOCITY = 3;
   public static final double FRAMERATE = 60.0;
   public static final String TITLE = "Flappy Bird " + version;
 
