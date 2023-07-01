@@ -149,7 +149,10 @@ public class GamePanel extends JPanel implements Runnable {
   // actualiza la información del juego para ser calculado en pantalla
   public void update () {
     bird.update();
-    pipeHandler.update();
+    // si el juego empezó, comienza a crear y mostrar tuberías
+    if (gameState == GAME_STARTED) {
+      pipeHandler.update();
+    }
     // si el pájaro está muerto, entonces el juego está en STOP
     if (bird.getState() == Bird.BIRD_DEAD)
       gameState = GAME_STOPPED;
