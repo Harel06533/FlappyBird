@@ -1,7 +1,9 @@
 package components;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import static util.Constant.WIDTH; 
 import static util.Constant.HEIGHT;
@@ -11,10 +13,10 @@ import static util.Constant.BIRD_IMGS_PATH;
 import static util.Constant.FLY_SOUND_PATH;
 import static util.Constant.HIT_SOUND_PATH;
 import static util.Constant.SCORE_SOUND_PATH;
+import components.Pipe;
+import components.PipeHandler;
 
 import util.SoundUtil;
-
-
 import util.BaseUtil;
 
 /** Clase de pájaro 
@@ -34,7 +36,7 @@ public class Bird {
   private static final int INITIAL_Y = (HEIGHT >> 1) - 70;           //--> Posición inicial en 'y'
 
   //atributos
-  private static Bird instance = null;                               //--> La instancia del pájaro
+  private static Bird instance = null;                             //--> La instancia del pájaro
 
   private int animationTick;                                         //--> La cantidad de ticks antes de la animación
   private int animationSpeed;                                        //--> La velocidad de la animación
@@ -46,6 +48,8 @@ public class Bird {
   private int posy;                                                  //--> Posición 'y' actual
   
   private double yVelocity;                                          //--> Velocidad 'y' actual
+  private int groundY;
+
 
   private boolean keyFlag;                                           //--> Determina si se está presionando una tecla
   private boolean hitFlag;                                           //--> Determina si el pájaro ya chocó
@@ -59,6 +63,8 @@ public class Bird {
     keyFlag = false;
     hitFlag = false;
     yVelocity = 0;
+    groundY = posy - 32; // Suponiendo que el suelo está ubicado 32 unidades por debajo de la posición inicial del pájaro
+
 
     animationSpeed = 8;
     animationTick = 0;
@@ -141,6 +147,35 @@ public class Bird {
     if (yVelocity > MAX_VEL_Y)                                   //---> Si el pajaro rebasa la maxima velocidad que es 12
       yVelocity = MAX_VEL_Y;                                     //---> Si es asi, la vuelve a 12 y evita que el pájaro caiga demasiado rápido
   }
+
+  
+
+/**
+ * Verifica la colisión del pájaro con las tuberías.
+ * Comprueba si los límites del rectángulo del pájaro se intersectan con los límites superiores o inferiores de las tuberías.
+ * Si se produce una colisión, se muere el pájaro
+ * 
+ * @param pipes La lista de tuberías con las que se verifica la colisión.
+ */
+public void checkCollision(List<Pipe> pipes) {
+  // Se crea un rectángulo que representa los límites del pájaro
+  Rectangle birdBounds = new Rectangle(posx, posy, birdImages[animationIndex].getWidth(), birdImages[animationIndex].getHeight());
+  
+  // Se itera sobre la lista de tuberías
+  for (Pipe pipe : pipes) {
+    // Se obtienen los límites de colisión de la parte superior e inferior de la tubería actual
+    Rectangle topPipeBounds = pipe.getTopBounds();
+    Rectangle bottomPipeBounds = pipe.getBottomBounds();
+    
+    // Se verifica si los límites del pájaro intersectan con los límites de alguna tubería
+    if (birdBounds.intersects(topPipeBounds) || birdBounds.intersects(bottomPipeBounds)) {
+      // Si hay una colisión, se establece el estado del pájaro como muerto y se finaliza el método
+      setState(BIRD_DEAD);
+      fall();
+      return;
+    }
+  }
+}
 
   // sonido al volar
   public void flySound () {

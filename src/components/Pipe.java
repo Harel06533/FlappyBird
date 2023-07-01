@@ -1,6 +1,7 @@
 package components;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import util.BaseUtil;
@@ -55,6 +56,28 @@ public class Pipe {
   // obtiene la posición x actual de la tubería
   public int getX() {
     return posx;
+  }
+
+  public int getY(){
+    return posy;
+  }
+
+/**
+   * Los límites de colisión se definen como un rectángulo que rodea completamente la parte superior de la tubería.
+   * 
+   * @return El rectángulo de los límites de colisión de la parte superior de la tubería.
+   */
+  public Rectangle getTopBounds() {
+    return new Rectangle(posx, posy - PIPE_HEIGHT, PIPE_WIDTH, PIPE_HEIGHT);
+  }
+
+  /**
+   * Los límites de colisión se definen como un rectángulo que rodea completamente la parte inferior de la tubería.
+   * 
+   * @return El rectángulo de los límites de colisión de la parte inferior de la tubería.
+   */
+  public Rectangle getBottomBounds() {
+    return new Rectangle(posx, posy + GAP, PIPE_WIDTH, PIPE_HEIGHT);
   }
 
   // obtiene el ancho de la tubería
