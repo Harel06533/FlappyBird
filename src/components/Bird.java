@@ -3,7 +3,6 @@ package components;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 import static util.Constant.WIDTH; 
 import static util.Constant.HEIGHT;
@@ -13,8 +12,6 @@ import static util.Constant.BIRD_IMGS_PATH;
 import static util.Constant.FLY_SOUND_PATH;
 import static util.Constant.HIT_SOUND_PATH;
 import static util.Constant.SCORE_SOUND_PATH;
-import components.Pipe;
-import components.PipeHandler;
 
 import util.SoundUtil;
 import util.BaseUtil;
@@ -48,13 +45,12 @@ public class Bird {
   private int posy;                                                  //--> Posición 'y' actual
   
   private double yVelocity;                                          //--> Velocidad 'y' actual
-  private int groundY;
-
 
   private boolean keyFlag;                                           //--> Determina si se está presionando una tecla
   private boolean hitFlag;                                           //--> Determina si el pájaro ya chocó
 
   private BufferedImage[] birdImages;                                //--> Imágenes del pájaro para animar
+  private Rectangle birdHitbox;
 
   // constructor privado (inicializa todas las variables necesarias)
   private Bird () {
@@ -63,8 +59,6 @@ public class Bird {
     keyFlag = false;
     hitFlag = false;
     yVelocity = 0;
-    groundY = posy - 32; // Suponiendo que el suelo está ubicado 32 unidades por debajo de la posición inicial del pájaro
-
 
     animationSpeed = 8;
     animationTick = 0;
@@ -76,6 +70,8 @@ public class Bird {
     for (int i = 0; i < BIRD_IMGS_PATH.length; i++) {
       birdImages[i] = BaseUtil.loadBufferedImage(BIRD_IMGS_PATH[i]);
     }
+
+    birdHitbox = new Rectangle();
   }
 
   // obtención de la instancia
@@ -105,6 +101,8 @@ public class Bird {
   // actualiza la información del jugador basado en su estado
   public void update() {
     animate();
+    birdHitbox.setBounds(posx, posy, birdImages[animationIndex].getWidth(), birdImages[animationIndex].getHeight());  // hitbox del pájaro
+
     // si la posición en 'y' está fuera de la pantalla, regresa al pájaro a una posición válida
     if (posy <= 1) 
       posy = -5;
@@ -148,34 +146,6 @@ public class Bird {
       yVelocity = MAX_VEL_Y;                                     //---> Si es asi, la vuelve a 12 y evita que el pájaro caiga demasiado rápido
   }
 
-  
-
-/**
- * Verifica la colisión del pájaro con las tuberías.
- * Comprueba si los límites del rectángulo del pájaro se intersectan con los límites superiores o inferiores de las tuberías.
- * Si se produce una colisión, se muere el pájaro
- * 
- * @param pipes La lista de tuberías con las que se verifica la colisión.
- */
-public void checkCollision(List<Pipe> pipes) {
-  // Se crea un rectángulo que representa los límites del pájaro
-  Rectangle birdBounds = new Rectangle(posx, posy, birdImages[animationIndex].getWidth(), birdImages[animationIndex].getHeight());
-  
-  // Se itera sobre la lista de tuberías
-  for (Pipe pipe : pipes) {
-    // Se obtienen los límites de colisión de la parte superior e inferior de la tubería actual
-    Rectangle topPipeBounds = pipe.getTopBounds();
-    Rectangle bottomPipeBounds = pipe.getBottomBounds();
-    
-    // Se verifica si los límites del pájaro intersectan con los límites de alguna tubería
-    if (birdBounds.intersects(topPipeBounds) || birdBounds.intersects(bottomPipeBounds)) {
-      // Si hay una colisión, se establece el estado del pájaro como muerto y se finaliza el método
-      setState(BIRD_DEAD);
-      fall();
-      return;
-    }
-  }
-}
 
   // sonido al volar
   public void flySound () {
@@ -195,6 +165,8 @@ public void checkCollision(List<Pipe> pipes) {
   // dibuja el elemento en pantalla
   public void draw (Graphics g) {
     g.drawImage(birdImages[animationIndex], posx, posy, null);
+    // dibuja el hitbox de momento para debuggear
+    g.drawRect((int)birdHitbox.getX(), (int)birdHitbox.getY(), (int)birdHitbox.getWidth(), (int)birdHitbox.getHeight());
   }
 
 
@@ -221,6 +193,7 @@ public void checkCollision(List<Pipe> pipes) {
   // getters
   public int getState () { return state; }
   public int getPosY () { return posy; }
+  public Rectangle getBirdBounds () { return birdHitbox; }
   public double getyVelocity () { return yVelocity; }
   public boolean isKeyPressed () { return (keyFlag == true); }
   public boolean isKeyReleased () { return (keyFlag == false); }

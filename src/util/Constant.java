@@ -3,7 +3,7 @@ package util;
 /** Constantes que se utilizarán a lo largo de toda la aplicación */
 public abstract class Constant {
   // version actuál del juego  
-  private static final String version = "(IN DEVELOPMENT) v2.2";
+  private static final String version = "(IN DEVELOPMENT) v2.5";
 
   // pantalla
   public static final int WIDTH = 432;
