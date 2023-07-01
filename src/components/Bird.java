@@ -134,12 +134,12 @@ public class Bird {
 
   // caída libre del pájaro
   public void fall () {
-    if (state == BIRD_DEAD || state == BIRD_IDLE)
+    if (state == BIRD_DEAD || state == BIRD_IDLE)                //---> El pajaro solo caera cuando su estado sea brincando
       return;
-    yVelocity += ACC_Y;
-    posy += yVelocity;
-    if (yVelocity > MAX_VEL_Y)
-      yVelocity = MAX_VEL_Y;
+    yVelocity += ACC_Y;                                          //---> Aumentara gradualmente la velocidad del pájaro simulando la gravedad
+    posy += yVelocity;                                           //---> El pajaro se desplaza en y y se guarda la nueva posición
+    if (yVelocity > MAX_VEL_Y)                                   //---> Si el pajaro rebasa la maxima velocidad que es 12
+      yVelocity = MAX_VEL_Y;                                     //---> Si es asi, la vuelve a 12 y evita que el pájaro caiga demasiado rápido
   }
 
   // sonido al volar
