@@ -10,8 +10,6 @@ import static util.Constant.PIPE_TOP_IMG_PATH;
 import static util.Constant.PIPE_BOTTOM_IMG_PATH;
 import static util.Constant.GAME_VELOCITY;
 
-import components.Bird;
-
 /** Clase individual de una tubería */
 public class Pipe {
   // constantes
