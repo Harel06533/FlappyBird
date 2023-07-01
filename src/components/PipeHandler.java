@@ -60,7 +60,7 @@ public class PipeHandler {
       isFirstSpawn = false;
     } else {
       int lastX = pipeList.get(pipeList.size() - 1).getX();
-      currx = lastX + Pipe.PIPE_WIDTH + 30 + Pipe.GAP;      //--> A partir del primer spawn, la posición x de las siguientes tuberías serán mas cercanas
+      currx = lastX + Pipe.PIPE_WIDTH + 35 + Pipe.GAP;      //--> A partir del primer spawn, la posición x de las siguientes tuberías serán mas cercanas
     }
     
     Pipe newPipe = new Pipe(currx, randomPosy);
