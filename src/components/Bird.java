@@ -101,7 +101,7 @@ public class Bird {
   // actualiza la información del jugador basado en su estado
   public void update() {
     animate();
-    birdHitbox.setBounds(posx, posy, birdImages[animationIndex].getWidth(), birdImages[animationIndex].getHeight());  // hitbox del pájaro
+    birdHitbox.setBounds(posx, posy, birdImages[animationIndex].getWidth(), birdImages[animationIndex].getHeight()+10);  // hitbox del pájaro
 
     // si la posición en 'y' está fuera de la pantalla, regresa al pájaro a una posición válida
     if (posy <= 1) 

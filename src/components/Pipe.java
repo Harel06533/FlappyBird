@@ -69,9 +69,10 @@ public class Pipe {
   public void draw(Graphics g) {
     g.drawImage(topPipe, posx, posy - PIPE_HEIGHT, PIPE_WIDTH, PIPE_HEIGHT, null);
     g.drawImage(bottomPipe, posx, posy + GAP, PIPE_WIDTH, PIPE_HEIGHT, null);
+
     // dibuja los hitbox de momento para debugear
-    g.drawRect((int)topBounds.x, (int)topBounds.y, PIPE_WIDTH, PIPE_HEIGHT);
-    g.drawRect((int)bottomBounds.x, (int)bottomBounds.y, PIPE_WIDTH, PIPE_HEIGHT);
+    g.drawRect((int)topBounds.x, (int)topBounds.y, PIPE_WIDTH, PIPE_HEIGHT+1);
+    g.drawRect((int)bottomBounds.x, (int)bottomBounds.y, PIPE_WIDTH+2, PIPE_HEIGHT);
   }
 
   // obtiene la posición x actual de la tubería
