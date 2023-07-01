@@ -15,7 +15,7 @@ import components.Bird;
 /** Clase individual de una tubería */
 public class Pipe {
   // constantes
-  protected static final int GAP = 100;
+  protected static final int GAP = 115;
   protected static final int PIPE_WIDTH = 138 / 2;
   protected static final int PIPE_HEIGHT = 793 / 2;
 
