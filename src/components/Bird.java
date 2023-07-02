@@ -1,9 +1,10 @@
 package components;
 
+import java.util.List;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 import static util.Constant.WIDTH; 
 import static util.Constant.HEIGHT;
@@ -46,7 +47,6 @@ public class Bird {
   private int posy;                                                  //--> Posición 'y' actual
   
   private double yVelocity;                                          //--> Velocidad 'y' actual
-
 
   private boolean keyFlag;                                           //--> Determina si se está presionando una tecla
   private boolean hitFlag;                                           //--> Determina si el pájaro ya chocó
@@ -100,6 +100,7 @@ public class Bird {
   // actualiza la información del jugador basado en su estado
   public void update() {
     animate();
+
     // si la posición en 'y' está fuera de la pantalla, regresa al pájaro a una posición válida
     if (posy <= 1) 
       posy = -5;
@@ -143,8 +144,6 @@ public class Bird {
       yVelocity = MAX_VEL_Y;                                     //---> Si es asi, la vuelve a 12 y evita que el pájaro caiga demasiado rápido
   }
 
-  
-
 /**
  * Verifica la colisión del pájaro con las tuberías y el suelo.
  * Comprueba si los límites del rectángulo del pájaro se intersectan con los límites superiores o inferiores de las tuberías o con el suelo.
@@ -164,7 +163,7 @@ public class Bird {
       return;
     }
       
-    // checa si colisiona con una tubería (Obtiene las tuberías)
+    // checa si colisiona con una tubería (Obtiene las tuberías y crea un Hitbox para el pájaro)
     Rectangle birdBounds = new Rectangle(posx, posy, birdImages[animationIndex].getWidth(), birdImages[animationIndex].getHeight());
     for (Pipe pipe : pipes) {
       Rectangle topPipeBounds = pipe.getTopBounds();

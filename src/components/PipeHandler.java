@@ -67,11 +67,7 @@ public class PipeHandler {
     pipeList.add(newPipe);
   }
 
-  // Retorna la lista de Pipes
-  public List<Pipe> getPipes() {
+  public List<Pipe> getPipes () {
     return pipeList;
   }
-
-
-
 }
