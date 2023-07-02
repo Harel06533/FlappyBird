@@ -156,13 +156,6 @@ public class Bird {
     if (state == BIRD_DEAD)
       return;
 
-    // checa si colisiona con el suelo
-    if (posy >= groundHeight - 32) {
-      posy = groundHeight - 32;
-      state = BIRD_DEAD;
-      return;
-    }
-      
     // checa si colisiona con una tubería (Obtiene las tuberías y crea un Hitbox para el pájaro)
     Rectangle birdBounds = new Rectangle(posx, posy, birdImages[animationIndex].getWidth(), birdImages[animationIndex].getHeight());
     for (Pipe pipe : pipes) {
@@ -173,6 +166,14 @@ public class Bird {
         return;
       }
     }
+    
+    // checa si colisiona con el suelo
+    if (posy >= groundHeight - 32) {
+      posy = groundHeight - 32;
+      state = BIRD_DEAD;
+      return;
+    }
+      
   }
 
   // sonido al volar
