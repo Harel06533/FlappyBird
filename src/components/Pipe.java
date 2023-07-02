@@ -26,6 +26,10 @@ public class Pipe {
   private BufferedImage topPipe;                //--> Imágen de la tubería de arriba
   private BufferedImage bottomPipe;             //--> Imágen de la tubería de abajo
 
+  private Rectangle topPipeBounds;
+  private Rectangle bottomPipeBounds;
+  private Rectangle scoreBounds;
+
   private Bird bird;                            //--> Instancia del pájaro
 
   // constructor
@@ -53,6 +57,7 @@ public class Pipe {
   public void draw(Graphics g) {
     g.drawImage(topPipe, posx, posy - PIPE_HEIGHT, PIPE_WIDTH, PIPE_HEIGHT, null);
     g.drawImage(bottomPipe, posx, posy + GAP, PIPE_WIDTH, PIPE_HEIGHT, null);
+    g.drawRect((int)scoreBounds.x, (int)scoreBounds.y, (int)scoreBounds.getWidth(), (int)scoreBounds.getHeight());
   }
 
   // obtiene la posición x actual de la tubería
@@ -65,11 +70,20 @@ public class Pipe {
   }
 
   public Rectangle getTopBounds () {
-    return new Rectangle(posx, posy - PIPE_HEIGHT, PIPE_WIDTH, PIPE_HEIGHT);
+    topPipeBounds = new Rectangle(posx, posy - PIPE_HEIGHT, PIPE_WIDTH, PIPE_HEIGHT);
+    return topPipeBounds;
   }
 
   public Rectangle getBottomBounds () {
-    return new Rectangle(posx, posy + GAP, PIPE_WIDTH, PIPE_HEIGHT);
+    bottomPipeBounds = new Rectangle(posx, posy + GAP, PIPE_WIDTH, PIPE_HEIGHT);
+    return bottomPipeBounds;
+  }
+
+  public Rectangle getScoreBounds () {
+    int newPosy = (int)(topPipeBounds.getY() + topPipeBounds.getHeight());
+    int height = (int)(bottomPipeBounds.getY() - (topPipeBounds.getY() + topPipeBounds.getHeight()));
+    scoreBounds = new Rectangle(posx, newPosy, PIPE_WIDTH, height);
+    return scoreBounds;
   }
 
   // obtiene el ancho de la tubería

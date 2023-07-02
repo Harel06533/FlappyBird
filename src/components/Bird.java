@@ -43,6 +43,8 @@ public class Bird {
 
   private int state;                                                 //--> El estado del pájaro
 
+  private int birdScore;                                             //--> Numeral del score
+
   private int posx;                                                  //--> Posición 'x' actual
   private int posy;                                                  //--> Posición 'y' actual
   
@@ -50,8 +52,11 @@ public class Bird {
 
   private boolean keyFlag;                                           //--> Determina si se está presionando una tecla
   private boolean hitFlag;                                           //--> Determina si el pájaro ya chocó
+  private boolean scoreFlag;                                         //--> Determina si el pájaro pasó por la zona score
 
   private BufferedImage[] birdImages;                                //--> Imágenes del pájaro para animar
+
+  private Score score;                                               //--> Score global
 
   // constructor privado (inicializa todas las variables necesarias)
   private Bird () {
@@ -59,6 +64,7 @@ public class Bird {
     posy = INITIAL_Y;
     keyFlag = false;
     hitFlag = false;
+    scoreFlag = false;
     yVelocity = 0;
 
     animationSpeed = 8;
@@ -67,6 +73,10 @@ public class Bird {
 
     state = BIRD_IDLE;
 
+    score = new Score();
+
+    birdScore = score.getScore();
+    
     birdImages = new BufferedImage[BIRD_IMGS_PATH.length];
     for (int i = 0; i < BIRD_IMGS_PATH.length; i++) {
       birdImages[i] = BaseUtil.loadBufferedImage(BIRD_IMGS_PATH[i]);
@@ -116,6 +126,12 @@ public class Bird {
         hitFlag = true;
       }
     }
+
+    // si el score global es mayor que el actuál, actualiza y hace sonar el scoreSound
+    if (score.getScore() > birdScore) {
+      birdScore = score.getScore();
+      scoreSound();
+    }
     fall();
   }
 
@@ -124,6 +140,7 @@ public class Bird {
     state = BIRD_IDLE;
     posy = INITIAL_Y;
     posx = INITIAL_X;
+    score.restart();
     hitFlag = false;
   }
 
@@ -161,19 +178,31 @@ public class Bird {
     for (Pipe pipe : pipes) {
       Rectangle topPipeBounds = pipe.getTopBounds();
       Rectangle bottomPipeBounds = pipe.getBottomBounds();
+      Rectangle scorePipeBounds = pipe.getScoreBounds();
+
+      // checa si pasa por la zona de score
+      if (birdBounds.intersects(scorePipeBounds)) {
+        if (!scoreFlag) {
+          score.addToScore();
+          scoreFlag = true;
+        }
+      } else {
+        scoreFlag = false;
+      }
+
+      // checa si colisiona con alguna tubería
       if (birdBounds.intersects(topPipeBounds) || birdBounds.intersects(bottomPipeBounds)) {
         state = BIRD_DEAD;
         return;
       }
     }
-    
+
     // checa si colisiona con el suelo
     if (posy >= groundHeight - 32) {
       posy = groundHeight - 32;
       state = BIRD_DEAD;
       return;
     }
-      
   }
 
   // sonido al volar
@@ -194,6 +223,11 @@ public class Bird {
   // dibuja el elemento en pantalla
   public void draw (Graphics g) {
     g.drawImage(birdImages[animationIndex], posx, posy, null);
+  }
+
+  // dibuja el score
+  public void drawScore (Graphics g) {
+    score.draw(g);
   }
 
 

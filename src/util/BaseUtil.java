@@ -15,6 +15,9 @@ public abstract class BaseUtil {
     return ((int)(Math.random() * (max - min)) + min);
   }
 
+  // carga un archivo binario y lo lee
+
+
   // carga las imágenes
   public static BufferedImage loadBufferedImage (String path) {
     try {
