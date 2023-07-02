@@ -15,6 +15,7 @@ import components.Logos;
 import components.Background;
 
 import static util.Constant.FRAMERATE;
+import static util.Constant.GROUND_HEIGHT;
 
 /** Implementa un componente para trabajar gráficos encima */
 public class GamePanel extends JPanel implements Runnable {
@@ -152,7 +153,7 @@ public class GamePanel extends JPanel implements Runnable {
     // si el juego empezó, comienza a crear y mostrar tuberías
     if (gameState == GAME_STARTED) {
       pipeHandler.update();
-      bird.checkCollision(pipeHandler.getPipes());
+      bird.checkBirdCollision(pipeHandler.getPipes(), GROUND_HEIGHT);
     }
     // si el pájaro está muerto, entonces el juego está en STOP
     if (bird.getState() == Bird.BIRD_DEAD)
