@@ -41,6 +41,7 @@ public class Bird {
 
   private int state;                                                 //--> El estado del pájaro
 
+
   private int posx;                                                  //--> Posición 'x' actual
   private int posy;                                                  //--> Posición 'y' actual
   
@@ -65,7 +66,7 @@ public class Bird {
     animationIndex = 0;
 
     state = BIRD_IDLE;
-
+    
     birdImages = new BufferedImage[BIRD_IMGS_PATH.length];
     for (int i = 0; i < BIRD_IMGS_PATH.length; i++) {
       birdImages[i] = BaseUtil.loadBufferedImage(BIRD_IMGS_PATH[i]);
@@ -115,6 +116,7 @@ public class Bird {
         hitFlag = true;
       }
     }
+
     fall();
   }
 

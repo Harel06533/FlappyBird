@@ -47,7 +47,7 @@ public class Logos {
             this.y = (GamePanel.HEIGHT - logoHeight) / 2 + 200; // Ajusta la posición vertical del logotipo
 
             this.lostx = (GamePanel.WIDTH - lostWidth) / 2 + 220; // Ajusta la posición horizontal del logotipo de perdedor
-            this.losty = (GamePanel.HEIGHT - lostHeight) / 2 + 300; // Ajusta la posición vertical del logotipo de perdedor
+            this.losty = (GamePanel.HEIGHT - lostHeight) / 2 + 150; // Ajusta la posición vertical del logotipo de perdedor
 
         } else {
             System.err.println("No se pudo cargar la imagen del logotipo: " + LOGO_IMG_PATH);

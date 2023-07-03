@@ -84,4 +84,8 @@ public class PipeHandler {
     Pipe newPipe = new Pipe(currx, randomPosy);
     pipeList.add(newPipe);
   }
+
+  public List<Pipe> getPipes () {
+    return pipeList;
+  }
 }

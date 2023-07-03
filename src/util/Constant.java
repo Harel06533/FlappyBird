@@ -3,11 +3,12 @@ package util;
 /** Constantes que se utilizarán a lo largo de toda la aplicación */
 public abstract class Constant {
   // version actuál del juego  
-  private static final String version = "(IN DEVELOPMENT) v2.5";
+  private static final String version = "(IN DEVELOPMENT) v3.2";
 
   // pantalla
   public static final int WIDTH = 432;
   public static final int HEIGHT = 768;
+  public static final int GROUND_HEIGHT = 600;
   public static final int GAME_VELOCITY = 3;
   public static final double FRAMERATE = 60.0;
   public static final String TITLE = "Flappy Bird " + version;

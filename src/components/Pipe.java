@@ -60,13 +60,14 @@ public class Pipe {
   }
 
   // obtiene la posición x actual de la tubería
-  public int getX() {
+  public int getX () {
     return posx;
   }
 
-  public int getY(){
+  public int getY (){
     return posy;
   }
+
   // obtiene el ancho de la tubería
   public int getWidth() {
     return PIPE_WIDTH;

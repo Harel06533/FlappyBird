@@ -8,6 +8,7 @@ import  util.BaseUtil;
 
 import static util.Constant.GROUND_IMG_PATH;
 import static util.Constant.WIDTH;
+import static util.Constant.GROUND_HEIGHT;
 
 /** Clase del piso, crea dos sprites y los mueve para irlos intercalando 
  * @author Jorge Francisco Arriaga Escamilla
@@ -28,18 +29,13 @@ public class Ground {
     x1 = 0;
     x2 = WIDTH;
     velX = 3;
-    posy = 600;
+    posy = GROUND_HEIGHT;
 
     GroundImage = BaseUtil.loadBufferedImage(GROUND_IMG_PATH);
   }
 
   // movimiento
   public void movement() {
-    // si se encuentra el pájaro en la posición, lo mata
-    if (bird.getPosY() >= posy - 32) {
-      bird.setPosY(posy - 32); 
-      bird.setState(Bird.BIRD_DEAD);
-    } 
     // moverá el suelo únicamente si el pájaro está en estado normal o brincando
     if (bird.getState() != Bird.BIRD_DEAD) {
       x1 -= velX;
