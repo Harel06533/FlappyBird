@@ -10,8 +10,6 @@ import static util.Constant.PIPE_TOP_IMG_PATH;
 import static util.Constant.PIPE_BOTTOM_IMG_PATH;
 import static util.Constant.GAME_VELOCITY;
 
-import components.Bird;
-
 /** Clase individual de una tubería */
 public class Pipe {
   // constantes
@@ -30,7 +28,7 @@ public class Pipe {
 
   private Rectangle topBounds;                  //--> Hitbox de la tubería de arriba
   private Rectangle bottomBounds;               //--> Hitbox de la tubería de abajo
-  private Rectangle birdBounds;                 //--> Hitbox del pájaro
+  private Rectangle scoreBounds;                //--> Zona de Score
 
   private Bird bird;                            //--> Instancia del pájaro
 
@@ -43,24 +41,12 @@ public class Pipe {
 
     bird = Bird.getBird();
 
-    birdBounds = bird.getBirdBounds();
-    topBounds = new Rectangle();
-    bottomBounds = new Rectangle();
-
     topPipe = BaseUtil.loadBufferedImage(PIPE_TOP_IMG_PATH);
     bottomPipe = BaseUtil.loadBufferedImage(PIPE_BOTTOM_IMG_PATH);
   }
 
   // actualiza la posición de la tubería
   public void update() {
-    // actualiza la información de los bounds / hitbox de cada tubería
-    topBounds.setBounds(posx, posy - PIPE_HEIGHT, PIPE_WIDTH, PIPE_HEIGHT);
-    bottomBounds.setBounds(posx, posy + GAP, PIPE_WIDTH, PIPE_HEIGHT);;
-
-    // si detecta que el pájaro cruzo los bounds, lo setea como muerto
-    if (birdBounds.intersects(topBounds) || birdBounds.intersects(bottomBounds))
-      bird.setState(Bird.BIRD_DEAD);
-
     // si el pájaro murió, la velocidad en 'x' es 0
     if (bird.getState() == Bird.BIRD_DEAD)
       xVelocity = 0;
@@ -71,9 +57,6 @@ public class Pipe {
   public void draw(Graphics g) {
     g.drawImage(topPipe, posx, posy - PIPE_HEIGHT, PIPE_WIDTH, PIPE_HEIGHT, null);
     g.drawImage(bottomPipe, posx, posy + GAP, PIPE_WIDTH, PIPE_HEIGHT, null);
-    // dibuja los hitbox de momento para debugear
-    g.drawRect((int)topBounds.x, (int)topBounds.y, PIPE_WIDTH, PIPE_HEIGHT);
-    g.drawRect((int)bottomBounds.x, (int)bottomBounds.y, PIPE_WIDTH, PIPE_HEIGHT);
   }
 
   // obtiene la posición x actual de la tubería
@@ -88,4 +71,23 @@ public class Pipe {
   public int getWidth() {
     return PIPE_WIDTH;
   }
+
+  // retorna el hitbox de la tubería superior
+  public Rectangle getTopBounds () {
+    topBounds = new Rectangle(posx, posy - PIPE_HEIGHT, PIPE_WIDTH, PIPE_HEIGHT);
+    return (topBounds);
+  }
+
+  public Rectangle getScoreBounds () {
+    int scorePosy = ((int)topBounds.getY() + (int)topBounds.getHeight());
+    int height = ((int)bottomBounds.getY() - ((int)topBounds.getY() + (int)topBounds.getHeight()));
+    scoreBounds = new Rectangle(posx, scorePosy, PIPE_WIDTH, height);
+    return (scoreBounds);
+  }
+
+  public Rectangle getBottomBounds () {
+    bottomBounds = new Rectangle(posx, posy + GAP, PIPE_WIDTH, PIPE_HEIGHT);
+    return (bottomBounds);
+  }
+
 }

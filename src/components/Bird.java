@@ -50,7 +50,7 @@ public class Bird {
   private boolean hitFlag;                                           //--> Determina si el pájaro ya chocó
 
   private BufferedImage[] birdImages;                                //--> Imágenes del pájaro para animar
-  private Rectangle birdHitbox;
+  private Rectangle birdBounds;
 
   // constructor privado (inicializa todas las variables necesarias)
   private Bird () {
@@ -70,8 +70,6 @@ public class Bird {
     for (int i = 0; i < BIRD_IMGS_PATH.length; i++) {
       birdImages[i] = BaseUtil.loadBufferedImage(BIRD_IMGS_PATH[i]);
     }
-
-    birdHitbox = new Rectangle();
   }
 
   // obtención de la instancia
@@ -101,7 +99,6 @@ public class Bird {
   // actualiza la información del jugador basado en su estado
   public void update() {
     animate();
-    birdHitbox.setBounds(posx, posy, birdImages[animationIndex].getWidth(), birdImages[animationIndex].getHeight());  // hitbox del pájaro
 
     // si la posición en 'y' está fuera de la pantalla, regresa al pájaro a una posición válida
     if (posy <= 1) 
@@ -165,8 +162,6 @@ public class Bird {
   // dibuja el elemento en pantalla
   public void draw (Graphics g) {
     g.drawImage(birdImages[animationIndex], posx, posy, null);
-    // dibuja el hitbox de momento para debuggear
-    g.drawRect((int)birdHitbox.getX(), (int)birdHitbox.getY(), (int)birdHitbox.getWidth(), (int)birdHitbox.getHeight());
   }
 
 
@@ -191,9 +186,12 @@ public class Bird {
   }
 
   // getters
+  public Rectangle getBirdBounds () {
+    birdBounds = new Rectangle(posx, posy, birdImages[animationIndex].getWidth(), birdImages[animationIndex].getHeight());
+    return birdBounds;
+  }
   public int getState () { return state; }
   public int getPosY () { return posy; }
-  public Rectangle getBirdBounds () { return birdHitbox; }
   public double getyVelocity () { return yVelocity; }
   public boolean isKeyPressed () { return (keyFlag == true); }
   public boolean isKeyReleased () { return (keyFlag == false); }

@@ -1,5 +1,6 @@
 package components;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +14,12 @@ public class PipeHandler {
   // atributos
   private List<Pipe> pipeList;
   private boolean isFirstSpawn = true;
+  private Bird bird;
 
   // constructor
   public PipeHandler () {
     pipeList = new ArrayList<>();
+    bird = Bird.getBird();
   }
 
   // actualiza la información de cada tubería
@@ -31,6 +34,21 @@ public class PipeHandler {
         pipeList.remove(i);
         i--;
       }
+
+      // guarda las zonas de colisión de la tubería y el pájaro
+      Rectangle bottomBounds = thisPipe.getBottomBounds();
+      Rectangle topBounds = thisPipe.getTopBounds();
+      Rectangle scoreBounds = thisPipe.getScoreBounds();
+      Rectangle birdBounds = bird.getBirdBounds();
+      
+      // si el pájaro pasa por la tubería de arriba o la de abajo, muere
+      if (topBounds.intersects(birdBounds) || bottomBounds.intersects(birdBounds)) 
+        bird.setState(Bird.BIRD_DEAD);
+
+      // si el pájaro pasa por la zona de score, aumenta 1 al score
+      if (scoreBounds.contains(birdBounds))
+        System.out.println("bird in scorezone");
+      
     }
     // añade una nueva tubería si ya no hay en la lista, o si la anterior salió del rango
     if (pipeList.isEmpty() || pipeList.get(pipeList.size() - 1).getX() <= WIDTH - Pipe.PIPE_WIDTH - Pipe.GAP)
