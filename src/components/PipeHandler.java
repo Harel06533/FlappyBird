@@ -46,8 +46,12 @@ public class PipeHandler {
         bird.setState(Bird.BIRD_DEAD);
 
       // si el pájaro pasa por la zona de score, aumenta 1 al score
-      if (scoreBounds.contains(birdBounds))
-        System.out.println("bird in scorezone");
+      if (scoreBounds.contains(birdBounds)) {
+        if (!thisPipe.getBirdInScore()) {
+          thisPipe.setBirdInScore(true);
+          bird.addBirdScore();
+        }
+      }
       
     }
     // añade una nueva tubería si ya no hay en la lista, o si la anterior salió del rango

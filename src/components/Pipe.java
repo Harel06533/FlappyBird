@@ -32,10 +32,14 @@ public class Pipe {
 
   private Bird bird;                            //--> Instancia del pájaro
 
+  private boolean birdInScore;                  //--> Determina si el pájaro cruzó la zona de Score (Esto se maneja por fuera)
+
   // constructor
   public Pipe(int posx, int posy) {
     this.posx = posx;
     this.posy = posy;
+
+    birdInScore = false;
 
     xVelocity = GAME_VELOCITY;
 
@@ -73,12 +77,18 @@ public class Pipe {
     return PIPE_WIDTH;
   }
 
+  // obtiene si encuentra el pájaro en el scorezone
+  public boolean getBirdInScore () {
+    return birdInScore;
+  }
+
   // retorna el hitbox de la tubería superior
   public Rectangle getTopBounds () {
     topBounds = new Rectangle(posx, posy - PIPE_HEIGHT, PIPE_WIDTH, PIPE_HEIGHT);
     return (topBounds);
   }
 
+  // retorna el hitbox de la zona de score
   public Rectangle getScoreBounds () {
     int scorePosy = ((int)topBounds.getY() + (int)topBounds.getHeight());
     int height = ((int)bottomBounds.getY() - ((int)topBounds.getY() + (int)topBounds.getHeight()));
@@ -86,9 +96,15 @@ public class Pipe {
     return (scoreBounds);
   }
 
+  // retorna el hitbox de la tubería inferior
   public Rectangle getBottomBounds () {
     bottomBounds = new Rectangle(posx, posy + GAP, PIPE_WIDTH, PIPE_HEIGHT);
     return (bottomBounds);
+  }
+
+  // setea el valor de birdInScore (Ya que las tuberías son desechables, este valor solo cambia una vez por instancia)
+  public void setBirdInScore (boolean birdInScore) {
+    this.birdInScore = birdInScore;
   }
 
 }

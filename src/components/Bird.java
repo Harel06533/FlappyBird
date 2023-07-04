@@ -135,6 +135,11 @@ public class Bird {
     yVelocity = JUMP_FORCE;
   }
 
+  // añade 1 al score del pájaro
+  public void addBirdScore () {
+    scoreSound();
+  }
+
   // caída libre del pájaro
   public void fall () {
     if (state == BIRD_DEAD || state == BIRD_IDLE)                //---> El pajaro solo caera cuando su estado sea brincando
