@@ -36,6 +36,12 @@ public class Ground {
 
   // movimiento
   public void movement() {
+    // si el pájaro toca el suelo, se muere
+    if (bird.getPosY() >= posy - 32) {
+      bird.setPosY(posy - 32);
+      bird.setState(Bird.BIRD_DEAD);
+    }
+
     // moverá el suelo únicamente si el pájaro está en estado normal o brincando
     if (bird.getState() != Bird.BIRD_DEAD) {
       x1 -= velX;
