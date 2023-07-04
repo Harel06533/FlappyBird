@@ -24,7 +24,8 @@ public class Score {
 
   // setea un nuevo highscore 
   public void setNewHighscore (int highscore) {
-    this.highscore = highscore;
+    if (highscore > this.highscore)
+      this.highscore = highscore;
   }
 
   // getScore 

@@ -41,7 +41,6 @@ public class Bird {
 
   private int state;                                                 //--> El estado del pájaro
 
-
   private int posx;                                                  //--> Posición 'x' actual
   private int posy;                                                  //--> Posición 'y' actual
   
@@ -51,6 +50,9 @@ public class Bird {
   private boolean hitFlag;                                           //--> Determina si el pájaro ya chocó
 
   private BufferedImage[] birdImages;                                //--> Imágenes del pájaro para animar
+
+  private Score birdScore;
+
   private Rectangle birdBounds;
 
   // constructor privado (inicializa todas las variables necesarias)
@@ -66,6 +68,8 @@ public class Bird {
     animationIndex = 0;
 
     state = BIRD_IDLE;
+
+    birdScore = new Score();
     
     birdImages = new BufferedImage[BIRD_IMGS_PATH.length];
     for (int i = 0; i < BIRD_IMGS_PATH.length; i++) {
@@ -126,6 +130,7 @@ public class Bird {
     posy = INITIAL_Y;
     posx = INITIAL_X;
     hitFlag = false;
+    birdScore.restart();
   }
 
   // la velocidad en y cuando brinca el pájaro
@@ -137,6 +142,7 @@ public class Bird {
 
   // añade 1 al score del pájaro
   public void addBirdScore () {
+    birdScore.addToScore();
     scoreSound();
   }
 
@@ -171,6 +177,10 @@ public class Bird {
     g.drawImage(birdImages[animationIndex], posx, posy, null);
   }
 
+  // dibuja el score del pájaro
+  public void drawScore (Graphics g) {
+    birdScore.draw(g);
+  }
 
   // setea el estado del pájaro (Normal, Jugando o Muerto)
   public void setState (int state) {

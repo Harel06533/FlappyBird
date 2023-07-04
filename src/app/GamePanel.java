@@ -122,6 +122,7 @@ public class GamePanel extends JPanel implements Runnable {
     // si el juego comenzó, dibja las tuberías
     if (gameState == GAME_STARTED) {
       pipeHandler.draw(g);
+      bird.drawScore(g);
     }
     
     if(gameState == GAME_STOPPED) {// si el juego se para
