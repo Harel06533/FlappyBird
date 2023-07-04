@@ -3,7 +3,7 @@ package util;
 /** Constantes que se utilizarán a lo largo de toda la aplicación */
 public abstract class Constant {
   // version actuál del juego  
-  private static final String version = "(IN DEVELOPMENT) v4.0";
+  private static final String version = "(IN DEVELOPMENT) v3.2";
 
   // pantalla
   public static final int WIDTH = 432;
@@ -27,6 +27,8 @@ public abstract class Constant {
   public static final String LOGO_IMG_PATH = "./assets/img/logo.png";
   public static final String START_IMG_PATH = "./assets/img/start.png";
   public static final String LOST_IMG_PATH = "./assets/img/gameover.png";
+  public static final String RESTART_IMG_PATH = "./assets/img/restart.png";
+  public static final String HIGHSCORE_IMG_PATH = "./assets/img/highscore.png";
   
   public static final String FLY_SOUND_PATH = "./assets/audio/fly.wav";
   public static final String HIT_SOUND_PATH = "./assets/audio/hit.wav";
