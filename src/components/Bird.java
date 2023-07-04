@@ -115,6 +115,10 @@ public class Bird {
 
     // si el pájaro está muerto, checa si ya chocó, y si aun no, suena el sonido al chocar y determina que ahora sí chocó
     if (state == BIRD_DEAD) {
+      if (birdScore.getScore() > birdScore.getHighscore()) {
+        birdScore.setNewHighscore(birdScore.getScore());
+      }
+
       if (hitFlag == false) {
         hitSound();
         hitFlag = true;
@@ -178,8 +182,13 @@ public class Bird {
   }
 
   // dibuja el score del pájaro
-  public void drawScore (Graphics g) {
-    birdScore.draw(g);
+  public void drawPlayingScore (Graphics g) {
+    birdScore.drawPlaying(g);
+  }
+
+  // dibuja el score al perder
+  public void drawEndScore (Graphics g) {
+    birdScore.drawEndScore(g);
   }
 
   // setea el estado del pájaro (Normal, Jugando o Muerto)

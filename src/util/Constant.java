@@ -3,7 +3,7 @@ package util;
 /** Constantes que se utilizarán a lo largo de toda la aplicación */
 public abstract class Constant {
   // version actuál del juego  
-  private static final String version = "(IN DEVELOPMENT) v3.3";
+  private static final String version = "(PRODUCTION) v1.0";
 
   // pantalla
   public static final int WIDTH = 432;
@@ -36,4 +36,6 @@ public abstract class Constant {
 
   public static final String PIPE_TOP_IMG_PATH = "./assets/img/pipe2_top.png";
   public static final String PIPE_BOTTOM_IMG_PATH = "./assets/img/pipe2_bottom.png";
+
+  public static final String HIGHSCORE_BIN_PATH = "./lib/highscore.bin";
 }

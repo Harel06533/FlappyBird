@@ -5,6 +5,9 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import static util.Constant.WIDTH;
+import static util.Constant.HIGHSCORE_BIN_PATH;
+
+import util.BaseUtil;
 
 public class Score {
 
@@ -15,6 +18,7 @@ public class Score {
   // constructor
   public Score () {
     currentScore = 0;
+    highscore = getHighscore();
   }
 
   // suma 1 al score 
@@ -24,8 +28,10 @@ public class Score {
 
   // setea un nuevo highscore 
   public void setNewHighscore (int highscore) {
-    if (highscore > this.highscore)
+    if (highscore > this.highscore) {
       this.highscore = highscore;
+      BaseUtil.writeIntegerBin(HIGHSCORE_BIN_PATH, this.highscore);
+    }
   }
 
   // getScore 
@@ -33,22 +39,48 @@ public class Score {
     return (currentScore);
   }
 
-  // getHighscore
+  // getHighscore desde un archivo binario
   public int getHighscore () {
-    return (highscore);
+    int hs;
+    try {
+      hs = BaseUtil.readIntegerBin(HIGHSCORE_BIN_PATH);
+    } catch (Exception e) {
+      setNewHighscore(0);
+      hs = BaseUtil.readIntegerBin(HIGHSCORE_BIN_PATH);
+    }
+    return hs;
   }
 
   // reset
   public void restart () {
+    setNewHighscore(currentScore);
     currentScore = 0;
   }
 
-  // dibuja
-  public void draw (Graphics g) {
+  // dibuja los datos de score al perder
+  public void drawEndScore (Graphics g) {
+    g.setFont(new Font("Comic Sans MS", Font.BOLD, 35));
+    g.setColor(Color.black);
+
+    String scoreString = Integer.toString(currentScore);
+    String highscoreString = Integer.toString(highscore);
+
+    int sWidth = g.getFontMetrics().stringWidth(scoreString);
+    int hsWidth = g.getFontMetrics().stringWidth(highscoreString);
+
+    g.drawString(scoreString, (WIDTH / 2 + sWidth / 2) - 15, 315);
+    g.drawString(highscoreString, (WIDTH / 2 + hsWidth / 2) - 15, 372);
+  }
+
+  // dibuja el score normal al jugar
+  public void drawPlaying (Graphics g) {
     g.setFont(new Font("Comic Sans MS", Font.BOLD, 50));
     g.setColor(Color.white);
+
     String stringScore = Integer.toString(currentScore);
+
     int textWidth = g.getFontMetrics().stringWidth(stringScore);
+
     g.drawString(stringScore, (WIDTH / 2 + textWidth / 2) - 30, 70);
   }
 }

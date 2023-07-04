@@ -126,15 +126,16 @@ public class GamePanel extends JPanel implements Runnable, MouseListener{
     if (gameState == GAME_READY) // si el juego esta listo para empezar
       logo.draw(g); // dibuja el titulo y el space bar
 
-    // si el juego comenzó, dibja las tuberías
+    // si el juego comenzó, dibja las tuberías y el score inicial
     if (gameState == GAME_STARTED) {
       pipeHandler.draw(g);
-      bird.drawScore(g);
+      bird.drawPlayingScore(g);
     }
     
     if(gameState == GAME_STOPPED) {// si el juego se para
       pipeHandler.draw(g); // dibuja las tuberías (internamente no poseen movimiento)
       logo.draw_lost(g); // dibuja el game over
+      bird.drawEndScore(g); // dibuja el score final
     }
     
     ground.draw(g);
