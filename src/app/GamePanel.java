@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import components.Bird;
 import components.PipeHandler;
@@ -17,7 +19,7 @@ import components.Background;
 import static util.Constant.FRAMERATE;
 
 /** Implementa un componente para trabajar gráficos encima */
-public class GamePanel extends JPanel implements Runnable {
+public class GamePanel extends JPanel implements Runnable, MouseListener{
   // clase keyListener para que ocurra dentro del juego
   public class BirdKeyListener implements KeyListener {
     @Override
@@ -36,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
 
           // caso 3, el juego termino
           case GAME_STOPPED:
-            restart();
+          
           break;
         }
         bird.pressKey();        //--> Variable flag que determina si está o no presionada la tecla
@@ -69,6 +71,8 @@ public class GamePanel extends JPanel implements Runnable {
   private int height;
   
   private int gameState;
+  private boolean canRestart = true;
+
   
   private Thread thread;
   
@@ -84,7 +88,7 @@ public class GamePanel extends JPanel implements Runnable {
     this.height = height;
     initPanel();
     initGame();
-
+    
   }
 
   // inicializa los datos del Panel
@@ -106,6 +110,9 @@ public class GamePanel extends JPanel implements Runnable {
     //pipe = new Pipe();
     logo = new Logos();
     gameState = GAME_READY;
+    logo.setCanRestart(true);
+    addMouseListener(this);
+
     
   }
 
@@ -146,6 +153,7 @@ public class GamePanel extends JPanel implements Runnable {
     gameState = GAME_READY;
     bird.restart();
     pipeHandler.restart();
+    canRestart = true;
   }
 
   // actualiza la información del juego para ser calculado en pantalla
@@ -159,6 +167,36 @@ public class GamePanel extends JPanel implements Runnable {
     if (bird.getState() == Bird.BIRD_DEAD)
       gameState = GAME_STOPPED;
   } 
+
+  /**
+  * Método que se ejecuta cuando se hace clic en el panel de juego.
+  * Verifica si se ha hecho clic en el botón de reinicio y reinicia el juego si es así.
+  *
+  * @param e El evento del mouse que contiene la posición del clic.
+  */
+  @Override
+  public void mouseClicked(MouseEvent e) {
+      int mouseX = e.getX();
+      int mouseY = e.getY();
+      checkRestart(mouseX, mouseY);
+  }
+
+
+/**
+ * Verifica si se ha hecho clic en el botón de reinicio y reinicia el juego si es así.
+ *
+ * @param mouseX La coordenada X del clic del mouse.
+ * @param mouseY La coordenada Y del clic del mouse.
+ */
+private void checkRestart(int mouseX, int mouseY) {
+    if (canRestart && mouseX >= logo.getRestartX() && mouseX <= logo.getRestartX() + logo.getRestartWidth()
+          && mouseY >= logo.getRestartY() && mouseY <= logo.getRestartY() + logo.getRestartHeight()) {
+      restart(); // Reinicia el juego
+    }
+}
+
+
+
 
   // corre el hilo del juego para actualizar y renderizar imágenes (Calcula los tiempos de cada frame para que sea estable)
   @Override
@@ -192,6 +230,32 @@ public class GamePanel extends JPanel implements Runnable {
     this.gameState = gameState;
   }
 
+  public void setCanRestart(boolean canRestart) {
+    this.canRestart = canRestart;
+}
+
+
   // getters
   public int getGameState () { return gameState; }
+
+  @Override
+  public void mouseEntered(MouseEvent e) {
+      // No hacer nada o agregar código relevante si es necesario
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+      // No hacer nada o agregar código relevante si es necesario
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e) {
+      // No hacer nada o agregar código relevante si es necesario
+  }
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+      // No hacer nada o agregar código relevante si es necesario
+  }
+
 }

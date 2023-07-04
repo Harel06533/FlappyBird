@@ -30,6 +30,7 @@ public class Logos {
     private int resty; // Posicion y de restart
     private int highx; // Posición x del highscore
     private int highy; // Posición y del highscore
+    private boolean canRestart;   
 
     /**
      * Constructor de la clase Logo.
@@ -109,6 +110,28 @@ public class Logos {
         this.highscoreImage = BaseUtil.loadBufferedImage(HIGHSCORE_IMG_PATH);
     }
 
+    public void setCanRestart(boolean canRestart) {
+        this.canRestart = canRestart;
+    }
+
+    public int getRestartX() {
+        return restx;
+    }
+
+    public int getRestartY() {
+        return resty;
+    }
+
+    public int getRestartWidth() {
+        return restartImage.getWidth();
+    }
+
+    public int getRestartHeight() {
+        return restartImage.getHeight();
+    }
+
+
+
     /**
      * Dibuja el logotipo en el componente gráfico proporcionado.
      *
@@ -121,8 +144,11 @@ public class Logos {
 
     public void draw_lost(Graphics g){
         g.drawImage(lostImage, lostx, losty, null);
-        g.drawImage(restartImage, restx, resty, null);
         g.drawImage(highscoreImage, highx, highy, null);
+
+        if(canRestart){
+            g.drawImage(restartImage, restx, resty, null);
+        }
     }
 
 }
