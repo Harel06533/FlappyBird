@@ -45,7 +45,7 @@ public class Score {
 
   // dibuja
   public void draw (Graphics g) {
-    g.setFont(new Font("Sans Serif", Font.BOLD, 50));
+    g.setFont(new Font("Comic Sans MS", Font.BOLD, 50));
     g.setColor(Color.white);
     String stringScore = Integer.toString(currentScore);
     int textWidth = g.getFontMetrics().stringWidth(stringScore);
