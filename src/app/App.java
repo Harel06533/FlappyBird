@@ -16,4 +16,4 @@ public class App {
   public static void main (String[] args) {
     new Window(WIDTH, HEIGHT, TITLE).gameStart();
   }
-}
+} 
