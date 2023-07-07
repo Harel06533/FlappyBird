@@ -7,6 +7,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
+
+
 import javax.imageio.ImageIO;
 
 /** Implementa funciones que serán de utilidad para la aplicación */
@@ -21,6 +28,7 @@ public abstract class BaseUtil {
   public static int readIntegerBin (String path) {
     int value = 0; 
     try (DataInputStream dataInputStream = new DataInputStream(new FileInputStream(path))) {
+      if (dataInputStream.available() > 0)
         value = dataInputStream.readInt();
     } catch (IOException e) {
       e.printStackTrace();
@@ -48,5 +56,17 @@ public abstract class BaseUtil {
     return null;
   }
 
+  // carga y reproduce un archivo de audio
+  public static void playSound (String path) {
+    try {
+      File soundFile = new File(path);
+      AudioInputStream audioInput = AudioSystem.getAudioInputStream(soundFile);
+      Clip clip = AudioSystem.getClip();
+      clip.open(audioInput);
+      clip.start();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 }
 

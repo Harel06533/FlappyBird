@@ -13,7 +13,6 @@ import static util.Constant.FLY_SOUND_PATH;
 import static util.Constant.HIT_SOUND_PATH;
 import static util.Constant.SCORE_SOUND_PATH;
 
-import util.SoundUtil;
 import util.BaseUtil;
 
 /** Clase de pájaro 
@@ -115,9 +114,8 @@ public class Bird {
 
     // si el pájaro está muerto, checa si ya chocó, y si aun no, suena el sonido al chocar y determina que ahora sí chocó
     if (state == BIRD_DEAD) {
-      if (birdScore.getScore() > birdScore.getHighscore()) {
+      if (birdScore.getScore() > birdScore.getHighscore()) 
         birdScore.setNewHighscore(birdScore.getScore());
-      }
 
       if (hitFlag == false) {
         hitSound();
@@ -163,17 +161,17 @@ public class Bird {
 
   // sonido al volar
   public void flySound () {
-    SoundUtil.playSound(FLY_SOUND_PATH);
+    BaseUtil.playSound(FLY_SOUND_PATH);
   }
 
   // sonido al hacer hit
   public void hitSound () {
-    SoundUtil.playSound(HIT_SOUND_PATH);
+    BaseUtil.playSound(HIT_SOUND_PATH);
   }
 
   // sonido al hacer score
   public void scoreSound () {
-    SoundUtil.playSound(SCORE_SOUND_PATH);
+    BaseUtil.playSound(SCORE_SOUND_PATH);
   }
 
   // dibuja el elemento en pantalla

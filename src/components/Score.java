@@ -28,10 +28,8 @@ public class Score {
 
   // setea un nuevo highscore 
   public void setNewHighscore (int highscore) {
-    if (highscore > this.highscore) {
-      this.highscore = highscore;
-      BaseUtil.writeIntegerBin(HIGHSCORE_BIN_PATH, this.highscore);
-    }
+    this.highscore = highscore;
+    BaseUtil.writeIntegerBin(HIGHSCORE_BIN_PATH, this.highscore);
   }
 
   // getScore 
@@ -41,19 +39,11 @@ public class Score {
 
   // getHighscore desde un archivo binario
   public int getHighscore () {
-    int hs;
-    try {
-      hs = BaseUtil.readIntegerBin(HIGHSCORE_BIN_PATH);
-    } catch (Exception e) {
-      setNewHighscore(0);
-      hs = BaseUtil.readIntegerBin(HIGHSCORE_BIN_PATH);
-    }
-    return hs;
+    return (BaseUtil.readIntegerBin(HIGHSCORE_BIN_PATH));
   }
 
   // reset
   public void restart () {
-    setNewHighscore(currentScore);
     currentScore = 0;
   }
 
@@ -68,8 +58,8 @@ public class Score {
     int sWidth = g.getFontMetrics().stringWidth(scoreString);
     int hsWidth = g.getFontMetrics().stringWidth(highscoreString);
 
-    g.drawString(scoreString, (WIDTH / 2 + sWidth / 2) - 15, 315);
-    g.drawString(highscoreString, (WIDTH / 2 + hsWidth / 2) - 15, 372);
+    g.drawString(scoreString, (WIDTH / 2 - sWidth / 2) + 5, 315);
+    g.drawString(highscoreString, (WIDTH / 2 - hsWidth / 2) + 5, 372);
   }
 
   // dibuja el score normal al jugar
@@ -81,6 +71,6 @@ public class Score {
 
     int textWidth = g.getFontMetrics().stringWidth(stringScore);
 
-    g.drawString(stringScore, (WIDTH / 2 + textWidth / 2) - 30, 70);
+    g.drawString(stringScore, (WIDTH / 2 - textWidth / 2), 70);
   }
 }
